@@ -11,4 +11,7 @@ public class Bits {
     public static final short DAMAGE_BIT = 0x0064;
     public static final short PASS_BLOCK_BIT = 0x0128;
 
+
+    public Bits() {
+    }
 }
