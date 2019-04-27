@@ -42,9 +42,9 @@ public class LoadingScreen extends ScreenAdapter{
     @Override
     public void show() {
         camera = new OrthographicCamera();
-        camera.position.set(GameConfig.DISPLAY_SCREEN_WIDTH_PX /2, GameConfig.DISPLAY_SCREEN_HEIGHT_PX , 0);
+        camera.position.set(GameConfig.SCREEN_WIDTH /2, GameConfig.SCREEN_HEIGHT, 0);
         camera.update();
-        viewport = new FitViewport(GameConfig.DISPLAY_SCREEN_WIDTH_PX, GameConfig.DISPLAY_SCREEN_HEIGHT_PX, camera);
+        viewport = new FitViewport(GameConfig.SCREEN_WIDTH, GameConfig.SCREEN_HEIGHT, camera);
         shapeRenderer = new ShapeRenderer();
 
         //Menu
@@ -77,8 +77,8 @@ public class LoadingScreen extends ScreenAdapter{
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(Color.WHITE);
         shapeRenderer.rect(
-                (GameConfig.DISPLAY_SCREEN_WIDTH_PX - PROGRESS_BAR_WIDTH) / 2,
-                (GameConfig.DISPLAY_SCREEN_HEIGHT_PX - PROGRESS_BAR_HEIGHT / 2),
+                (GameConfig.SCREEN_WIDTH - PROGRESS_BAR_WIDTH) / 2,
+                (GameConfig.SCREEN_HEIGHT - PROGRESS_BAR_HEIGHT / 2),
                 progress * PROGRESS_BAR_WIDTH, PROGRESS_BAR_HEIGHT);
         shapeRenderer.end();
 

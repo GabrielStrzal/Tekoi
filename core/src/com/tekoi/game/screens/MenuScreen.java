@@ -24,7 +24,7 @@ import com.tekoi.game.utils.GdxUtils;
 
 public class MenuScreen extends ScreenAdapter {
 
-    private static final int PLAY_BUTTON_Y = (int)GameConfig.DISPLAY_SCREEN_HEIGHT_PX/8;
+    private static final int PLAY_BUTTON_Y = (int)GameConfig.SCREEN_HEIGHT /8;
 
     private Texture backgroundTexture;
     private Texture playTexture;
@@ -42,7 +42,7 @@ public class MenuScreen extends ScreenAdapter {
     }
 
     public void show() {
-        stage = new Stage(new FitViewport(GameConfig.DISPLAY_SCREEN_WIDTH_PX, GameConfig.DISPLAY_SCREEN_HEIGHT_PX));
+        stage = new Stage(new FitViewport(GameConfig.SCREEN_WIDTH, GameConfig.SCREEN_HEIGHT));
         Gdx.input.setInputProcessor(stage);
         backgroundTexture = assetManager.get(ImagesPaths.MENU_BACKGROUND);
         Image background = new Image(backgroundTexture);
@@ -58,7 +58,7 @@ public class MenuScreen extends ScreenAdapter {
         ImageButton play = new ImageButton(
                 new TextureRegionDrawable(new TextureRegion(playTexture)),
                 new TextureRegionDrawable(new TextureRegion(playPressTexture)));
-        play.setPosition(GameConfig.DISPLAY_SCREEN_WIDTH_PX/2 - playTexture.getWidth()/2, PLAY_BUTTON_Y);
+        play.setPosition(GameConfig.SCREEN_WIDTH /2 - playTexture.getWidth()/2, PLAY_BUTTON_Y);
 
         play.addListener(new ActorGestureListener() {
             @Override
@@ -80,7 +80,7 @@ public class MenuScreen extends ScreenAdapter {
         stage.draw();
         stage.getBatch().begin();
         font.draw(stage.getBatch(), GameConfig.GAME_VERSION,
-                (GameConfig.DISPLAY_SCREEN_WIDTH_PX * .87f), (GameConfig.DISPLAY_SCREEN_HEIGHT_PX * .95f));
+                (GameConfig.SCREEN_WIDTH * .87f), (GameConfig.SCREEN_HEIGHT * .95f));
         stage.getBatch().end();
 
     }
