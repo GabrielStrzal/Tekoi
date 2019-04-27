@@ -16,7 +16,7 @@ public class GameScreen implements Screen {
     private Texture img;
     private SpriteBatch batch;
 
-    public GameScreen(TekoiGame game) {
+    public GameScreen(TekoiGame game, int level) {
         this.game = game;
         batch = game.batch;
         img = new Texture("badlogic.jpg");

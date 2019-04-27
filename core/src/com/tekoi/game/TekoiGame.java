@@ -1,18 +1,27 @@
 package com.tekoi.game;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.tekoi.game.screens.GameScreen;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.tekoi.game.screenManager.ScreenEnum;
+import com.tekoi.game.screenManager.ScreenManager;
 
 public class TekoiGame extends Game {
 
 
 	public SpriteBatch batch;
+	private final AssetManager assetManager = new AssetManager();
 	
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		setScreen(new GameScreen(this));
+		assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
+		ScreenManager.getInstance().initialize(this);
+		ScreenManager.getInstance().showScreen(ScreenEnum.LOADING_SCREEN, this);
+
 	}
 
 	@Override
@@ -23,5 +32,9 @@ public class TekoiGame extends Game {
 	@Override
 	public void dispose () {
 		batch.dispose();
+	}
+
+	public AssetManager getAssetManager() {
+		return assetManager;
 	}
 }
