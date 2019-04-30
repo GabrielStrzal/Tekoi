@@ -51,7 +51,7 @@ public class GameScreen implements Screen {
 
     private boolean characterChange;
 
-    private float xVelocity = 1f;
+    private float xVelocity = 2f;
     private float gravity = -10f;
     private float jumpSpeed = 250f;
 
@@ -66,6 +66,9 @@ public class GameScreen implements Screen {
     //character movement
     private boolean isDirectionUp;
     private boolean isDirectionRight = true;
+
+    private boolean isDirectionRightPressed = false;
+    private boolean isDirectionLeftPressed = false;
 
 
     private enum STATE {
@@ -121,6 +124,7 @@ public class GameScreen implements Screen {
         handleInput(dt);
 
         player.update(dt);
+        b2dcam.position.x = player.b2body.getPosition().x;
         gamecam.update();
         b2dcam.update();
         mapRenderer.setView(b2dcam);
@@ -128,11 +132,34 @@ public class GameScreen implements Screen {
 
     private void handleInput(float dt) {
 
-        if(isDirectionRight){
+
+            if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && worldContactListener.isOnGrounds()){
+                player.b2body.applyLinearImpulse(new Vector2(0,4f),player.b2body.getWorldCenter(), true);
+            }
+            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.b2body.getLinearVelocity().x <= 2){
+                isDirectionRightPressed = true;
+            }else{
+                isDirectionRightPressed=false;
+            }
+            if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.b2body.getLinearVelocity().x >= -2){
+                isDirectionLeftPressed = true;
+            }else{
+                isDirectionLeftPressed = false;
+            }
+
+
+
+
+        if(isDirectionRightPressed){
+           // player.b2body.applyForceToCenter(xVelocity, player.b2body.getLinearVelocity().y, true);
             player.b2body.setLinearVelocity(xVelocity, player.b2body.getLinearVelocity().y);
-        }else{
+        }else if(isDirectionLeftPressed) {
             player.b2body.setLinearVelocity(-xVelocity, player.b2body.getLinearVelocity().y);
+        }else{
+            player.b2body.applyForceToCenter(-(player.b2body.getLinearVelocity().x)*2, player.b2body.getLinearVelocity().y, true);
         }
+
+        /*
 
         if(isDirectionUp && worldContactListener.isOnGrounds()){
             player.b2body.applyForceToCenter(0,jumpSpeed,true);
@@ -152,7 +179,7 @@ public class GameScreen implements Screen {
             isDirectionRight = false;
             game.directionRight = false;
         }
-
+*/
 
     }
 
