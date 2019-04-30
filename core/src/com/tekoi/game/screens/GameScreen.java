@@ -34,7 +34,6 @@ public class GameScreen implements Screen {
     private TekoiGame game;
 
     private OrthographicCamera gamecam;
-    private OrthographicCamera b2dcam;
     private Viewport gamePort;
     private Player player;
 
@@ -87,8 +86,7 @@ public class GameScreen implements Screen {
         state = STATE.PLAYING;
 
         gamecam = new OrthographicCamera();
-        b2dcam = new OrthographicCamera();
-        b2dcam.setToOrtho(false,  GameConfig.SCREEN_WIDTH / TekoiGame.PPM, GameConfig.SCREEN_HEIGHT/ TekoiGame.PPM);
+        gamecam.setToOrtho(false,  GameConfig.SCREEN_WIDTH / TekoiGame.PPM, GameConfig.SCREEN_HEIGHT/ TekoiGame.PPM);
         gamePort = new FitViewport(GameConfig.SCREEN_WIDTH / TekoiGame.PPM, GameConfig.SCREEN_HEIGHT/ TekoiGame.PPM, gamecam);
 
         world = new World(new Vector2(0, gravity), true);
@@ -124,10 +122,9 @@ public class GameScreen implements Screen {
         handleInput(dt);
 
         player.update(dt);
-        b2dcam.position.x = player.b2body.getPosition().x;
+        gamecam.position.x = player.b2body.getPosition().x;
         gamecam.update();
-        b2dcam.update();
-        mapRenderer.setView(b2dcam);
+        mapRenderer.setView(gamecam);
     }
 
     private void handleInput(float dt) {
@@ -218,7 +215,7 @@ public class GameScreen implements Screen {
 
         mapRenderer.render();
         if(GameConfig.debug) {
-            b2dr.render(world, b2dcam.combined);
+            b2dr.render(world, gamecam.combined);
         }
         draw(delta);
 
@@ -226,7 +223,7 @@ public class GameScreen implements Screen {
     }
 
     private void draw(float delta) {
-        game.batch.setProjectionMatrix(b2dcam.combined);
+        game.batch.setProjectionMatrix(gamecam.combined);
         game.batch.begin();
         player.draw(game.batch);
         game.batch.end();
