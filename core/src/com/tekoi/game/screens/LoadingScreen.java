@@ -8,12 +8,14 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.tekoi.game.TekoiGame;
 import com.tekoi.game.config.GameConfig;
 import com.tekoi.game.constants.GameAssets;
 import com.tekoi.game.constants.ImagesPaths;
+import com.tekoi.game.constants.LevelNames;
 import com.tekoi.game.utils.GdxUtils;
 
 /**
@@ -53,6 +55,12 @@ public class LoadingScreen extends ScreenAdapter{
         assetManager.load(ImagesPaths.MENU_PLAY_BUTTON_PRESSED, Texture.class);
         assetManager.load(GameAssets.GAME_FONT, BitmapFont.class);
 
+        //Character
+        assetManager.load(ImagesPaths.CHAR_ATLAS, Texture.class);
+
+        //Levels
+        assetManager.load(LevelNames.LEVEL_1, TiledMap.class);
+
     }
     @Override
     public void render(float delta) {
@@ -66,7 +74,7 @@ public class LoadingScreen extends ScreenAdapter{
     }
     private void update() {
         if (assetManager.update()) {
-            game.setScreen(new MenuScreen(game));
+            game.setScreen(new TestScreen(game));
         } else {
             progress = assetManager.getProgress();
         }

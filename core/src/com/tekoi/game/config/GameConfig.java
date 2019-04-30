@@ -8,7 +8,7 @@ public class GameConfig {
 
     public static final String GAME_VERSION = "V.0.0.1";
 
-    public static final boolean debug = false;
+    public static final boolean debug = true;
 
     private GameConfig(){}
 }
