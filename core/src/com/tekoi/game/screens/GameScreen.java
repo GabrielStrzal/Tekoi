@@ -10,7 +10,9 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
@@ -25,9 +27,6 @@ import com.tekoi.game.utils.GdxUtils;
 import com.tekoi.game.worldCreator.B2WorldCreator;
 import com.tekoi.game.worldCreator.WorldContactListener;
 
-/**
- * Created by lelo on 24/06/18.
- */
 
 public class GameScreen implements Screen {
 
@@ -47,8 +46,6 @@ public class GameScreen implements Screen {
     private Box2DDebugRenderer b2dr;
     private AssetManager assetManager;
 
-
-    private boolean characterChange;
 
     private float xVelocity = 2f;
     private float gravity = -10f;
@@ -73,11 +70,11 @@ public class GameScreen implements Screen {
     private enum STATE {
         PLAYING, GAME_OVER, LEVEL_CLEARED, PAUSED
     }
+
     private STATE state;
 
     private BitmapFont bitmapFont;
     private GlyphLayout layout = new GlyphLayout();
-
 
 
     public GameScreen(TekoiGame game, int level) {
@@ -86,15 +83,15 @@ public class GameScreen implements Screen {
         state = STATE.PLAYING;
 
         gamecam = new OrthographicCamera();
-        gamecam.setToOrtho(false,  GameConfig.SCREEN_WIDTH / TekoiGame.PPM, GameConfig.SCREEN_HEIGHT/ TekoiGame.PPM);
-        gamePort = new FitViewport(GameConfig.SCREEN_WIDTH / TekoiGame.PPM, GameConfig.SCREEN_HEIGHT/ TekoiGame.PPM, gamecam);
+        gamecam.setToOrtho(false, GameConfig.SCREEN_WIDTH / TekoiGame.PPM, GameConfig.SCREEN_HEIGHT / TekoiGame.PPM);
+        gamePort = new FitViewport(GameConfig.SCREEN_WIDTH / TekoiGame.PPM, GameConfig.SCREEN_HEIGHT / TekoiGame.PPM, gamecam);
 
         world = new World(new Vector2(0, gravity), true);
         b2dr = new Box2DDebugRenderer();
 
-        map = assetManager.get(LevelNames.LEVEL+ level + LevelNames.TMX);
+        map = assetManager.get(LevelNames.LEVEL + level + LevelNames.TMX);
         mapRenderer = new OrthogonalTiledMapRenderer(map, 1 / TekoiGame.PPM);
-        gamecam.position.set(gamePort.getWorldWidth()/2,gamePort.getWorldHeight()/2, 0);
+        gamecam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
         player = new Player(world, (Texture) assetManager.get(ImagesPaths.CHAR_ATLAS));
         //background = assetManager.get(ImagesPaths.GAME_BACKGROUND);
 
@@ -122,7 +119,11 @@ public class GameScreen implements Screen {
         handleInput(dt);
 
         player.update(dt);
-        gamecam.position.x = player.b2body.getPosition().x;
+        TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(0);
+        gamecam.position.x = MathUtils.clamp(player.b2body.getPosition().x, gamePort.getWorldWidth() / 2, (layer.getTileWidth() * layer.getWidth()) / TekoiGame.PPM - gamePort.getWorldWidth() / 2);
+        //gamecam.position.y = MathUtils.clamp(gamecam.position.y, gamePort.getWorldHeight()/2, mapHeight - gamePort.getWorldHeight()/2);
+
+
         gamecam.update();
         mapRenderer.setView(gamecam);
     }
@@ -130,60 +131,35 @@ public class GameScreen implements Screen {
     private void handleInput(float dt) {
 
 
-            if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && worldContactListener.isOnGrounds()){
-                player.b2body.applyLinearImpulse(new Vector2(0,4f),player.b2body.getWorldCenter(), true);
-            }
-            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.b2body.getLinearVelocity().x <= 2){
-                isDirectionRightPressed = true;
-            }else{
-                isDirectionRightPressed=false;
-            }
-            if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.b2body.getLinearVelocity().x >= -2){
-                isDirectionLeftPressed = true;
-            }else{
-                isDirectionLeftPressed = false;
-            }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && worldContactListener.isOnGrounds()) {
+            player.b2body.applyLinearImpulse(new Vector2(0, 4f), player.b2body.getWorldCenter(), true);
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.b2body.getLinearVelocity().x <= 2) {
+            isDirectionRightPressed = true;
+        } else {
+            isDirectionRightPressed = false;
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.b2body.getLinearVelocity().x >= -2) {
+            isDirectionLeftPressed = true;
+        } else {
+            isDirectionLeftPressed = false;
+        }
 
 
-
-
-        if(isDirectionRightPressed){
-           // player.b2body.applyForceToCenter(xVelocity, player.b2body.getLinearVelocity().y, true);
+        if (isDirectionRightPressed) {
             player.b2body.setLinearVelocity(xVelocity, player.b2body.getLinearVelocity().y);
-        }else if(isDirectionLeftPressed) {
+        } else if (isDirectionLeftPressed) {
             player.b2body.setLinearVelocity(-xVelocity, player.b2body.getLinearVelocity().y);
-        }else{
-            player.b2body.applyForceToCenter(-(player.b2body.getLinearVelocity().x)*2, player.b2body.getLinearVelocity().y, true);
+        } else {
+            player.b2body.applyForceToCenter(-(player.b2body.getLinearVelocity().x) * 2, player.b2body.getLinearVelocity().y, true);
         }
-
-        /*
-
-        if(isDirectionUp && worldContactListener.isOnGrounds()){
-            player.b2body.applyForceToCenter(0,jumpSpeed,true);
-            isDirectionUp = false;
-        }
-
-        if (Gdx.input.isKeyJustPressed(Input.Keys.UP)|| Gdx.input.isKeyJustPressed(Input.Keys.W)){
-            if(worldContactListener.isOnGrounds()){
-                isDirectionUp = true;
-            }
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D)){
-            isDirectionRight = true;
-            game.directionRight = true;
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)|| Gdx.input.isKeyPressed(Input.Keys.A)){
-            isDirectionRight = false;
-            game.directionRight = false;
-        }
-*/
 
     }
 
 
     @Override
     public void render(float delta) {
-        switch(state) {
+        switch (state) {
             case PLAYING: {
                 update(delta);
 //                checkLevelCompleted();
@@ -214,7 +190,7 @@ public class GameScreen implements Screen {
 //        game.batch.end();
 
         mapRenderer.render();
-        if(GameConfig.debug) {
+        if (GameConfig.debug) {
             b2dr.render(world, gamecam.combined);
         }
         draw(delta);

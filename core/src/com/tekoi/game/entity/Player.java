@@ -27,6 +27,15 @@ public class Player extends Sprite {
     private final Animation walking;
     private final TextureRegion standing;
 
+
+    private enum PLAYER_DIRECTION {
+        RIGHT, LEFT
+    }
+
+    private enum PLAYER_STATE {
+        MOVING, ATTACKING, CROUCK, DEAD
+    }
+
     public Player(World world, Texture texture){
         this(world, texture, 200/ TekoiGame.PPM, 380/ TekoiGame.PPM);
         setSize(WIDTH/TekoiGame.PPM,HEIGHT/TekoiGame.PPM);
