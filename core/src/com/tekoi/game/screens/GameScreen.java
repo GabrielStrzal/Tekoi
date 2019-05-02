@@ -148,8 +148,10 @@ public class GameScreen implements Screen {
 
         if (isDirectionRightPressed) {
             player.b2body.setLinearVelocity(xVelocity, player.b2body.getLinearVelocity().y);
+            player.playerFacingRight = true;
         } else if (isDirectionLeftPressed) {
             player.b2body.setLinearVelocity(-xVelocity, player.b2body.getLinearVelocity().y);
+            player.playerFacingRight = false;
         } else {
             player.b2body.applyForceToCenter(-(player.b2body.getLinearVelocity().x) * 2, player.b2body.getLinearVelocity().y, true);
         }

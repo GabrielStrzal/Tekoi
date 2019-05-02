@@ -27,10 +27,7 @@ public class Player extends Sprite {
     private final Animation walking;
     private final TextureRegion standing;
 
-
-    private enum PLAYER_DIRECTION {
-        RIGHT, LEFT
-    }
+    public boolean playerFacingRight = true;
 
     private enum PLAYER_STATE {
         MOVING, ATTACKING, CROUCK, DEAD
@@ -69,6 +66,12 @@ public class Player extends Sprite {
         if (xSpeed < 0) {
             if (!regionToDraw.isFlipX()) regionToDraw.flip(true,false);
         } else if (xSpeed > 0) {
+            if (regionToDraw.isFlipX()) regionToDraw.flip(true,false);
+        }
+
+        if (xSpeed == 0  && !playerFacingRight){
+            if (!regionToDraw.isFlipX()) regionToDraw.flip(true,false);
+        } else if (xSpeed == 0) {
             if (regionToDraw.isFlipX()) regionToDraw.flip(true,false);
         }
         setRegion(regionToDraw);
