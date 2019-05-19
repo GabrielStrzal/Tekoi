@@ -9,6 +9,7 @@ public class ImagesPaths {
 
     //Character
     public static final String CHAR_ATLAS = "images/char/char_atlas.png";
+    public static final String CHAR_ATTACK = "images/char/char_attack.png";
 
     private ImagesPaths() {}
 }

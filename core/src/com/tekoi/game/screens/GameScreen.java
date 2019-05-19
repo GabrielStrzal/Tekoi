@@ -156,6 +156,10 @@ public class GameScreen implements Screen {
             player.b2body.applyForceToCenter(-(player.b2body.getLinearVelocity().x) * 2, player.b2body.getLinearVelocity().y, true);
         }
 
+        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) ) {
+            player.attack();
+        }
+
     }
 
 

@@ -57,6 +57,7 @@ public class LoadingScreen extends ScreenAdapter{
 
         //Character
         assetManager.load(ImagesPaths.CHAR_ATLAS, Texture.class);
+        assetManager.load(ImagesPaths.CHAR_ATTACK, Texture.class);
 
         //Levels
         assetManager.load(LevelNames.LEVEL_1, TiledMap.class);

@@ -19,6 +19,8 @@ public class Map {
     //Object Descriptions
     public static final String PLAYER_BODY = "playerBody";
     public static final String PLAYER_BASE = "playerBase";
+    public static final String PLAYER_ATTACK_RIGHT = "playerAttackRight";
+    public static final String PLAYER_ATTACK_LEFT = "playerAttackLeft";
 
 
 

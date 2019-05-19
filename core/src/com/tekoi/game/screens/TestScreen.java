@@ -17,6 +17,8 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.tekoi.game.TekoiGame;
 import com.tekoi.game.config.GameConfig;
+import com.tekoi.game.screenManager.ScreenEnum;
+import com.tekoi.game.screenManager.ScreenManager;
 
 public class TestScreen implements Screen {
 
@@ -70,13 +72,13 @@ public class TestScreen implements Screen {
         playButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                ((Game)Gdx.app.getApplicationListener()).setScreen(new GameScreen(game, 1));
+                ScreenManager.getInstance().showScreen(ScreenEnum.GAME_SCREEN, game, 1);
             }
         });
         menuButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                ((Game)Gdx.app.getApplicationListener()).setScreen(new MenuScreen(game));
+                ScreenManager.getInstance().showScreen(ScreenEnum.MENU_SCREEN, game);
             }
         });
         textButton.addListener(new ClickListener(){
@@ -140,6 +142,7 @@ public class TestScreen implements Screen {
 
     @Override
     public void dispose() {
+        stage.dispose();
         skin.dispose();
         atlas.dispose();
     }
