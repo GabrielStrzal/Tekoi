@@ -23,38 +23,47 @@ public class B2WorldCreator {
     public Array<Enemy> enemies;
 
 
-    public B2WorldCreator(World world, TiledMap map, TekoiGame game){
+    public B2WorldCreator(World world, TiledMap map, TekoiGame game) {
 
 
         enemies = new Array<Enemy>();
 
 
-        //Blocks
+        createBlocks(world, map, game);
+        createBasicEnemy(world, map, game);
+        createWalkingEnemy(world, map, game);
+
+    }
+
+    private void createBlocks(World world, TiledMap map, TekoiGame game) {
         FixtureDef blockFdef = new FixtureDef();
         PolygonShape blockShape = new PolygonShape();
         BodyDef blockBdef = new BodyDef();
         Body blockBody;
-        if(map.getLayers().get(Map.MAP_BLOCKS) != null)
-        for (MapObject object : map.getLayers().get(Map.MAP_BLOCKS).getObjects().getByType(RectangleMapObject.class)) {
-            Rectangle rect = ((RectangleMapObject) object).getRectangle();
-            blockBdef.type = BodyDef.BodyType.StaticBody;
-            blockBdef.position.set((rect.getX() + rect.getWidth() / 2) / TekoiGame.PPM, (rect.getY() + rect.getHeight() / 2) / TekoiGame.PPM);
-            blockBody = world.createBody(blockBdef);
-            blockShape.setAsBox((rect.getWidth() / 2) / TekoiGame.PPM, (rect.getHeight() / 2) / TekoiGame.PPM);
-            blockFdef.shape = blockShape;
-            blockFdef.filter.categoryBits = Bits.BRICK_BIT;
-            blockFdef.filter.maskBits = Bits.PLAYER_BIT | Bits.BASE_BIT ;
-            blockFdef.friction = 0;
-            blockBody.createFixture(blockFdef).setUserData(Map.MAP_BLOCKS);
-        }
+        if (map.getLayers().get(Map.MAP_BLOCKS) != null)
+            for (MapObject object : map.getLayers().get(Map.MAP_BLOCKS).getObjects().getByType(RectangleMapObject.class)) {
+                Rectangle rect = ((RectangleMapObject) object).getRectangle();
+                blockBdef.type = BodyDef.BodyType.StaticBody;
+                blockBdef.position.set((rect.getX() + rect.getWidth() / 2) / TekoiGame.PPM, (rect.getY() + rect.getHeight() / 2) / TekoiGame.PPM);
+                blockBody = world.createBody(blockBdef);
+                blockShape.setAsBox((rect.getWidth() / 2) / TekoiGame.PPM, (rect.getHeight() / 2) / TekoiGame.PPM);
+                blockFdef.shape = blockShape;
+                blockFdef.filter.categoryBits = Bits.BRICK_BIT;
+                blockFdef.filter.maskBits = Bits.PLAYER_BIT | Bits.BASE_BIT;
+                blockFdef.friction = 0;
+                blockBody.createFixture(blockFdef).setUserData(Map.MAP_BLOCKS);
+            }
+    }
 
+    private void createWalkingEnemy(World world, TiledMap map, TekoiGame game) {
+    }
 
-        //Basic Enemy
+    private void createBasicEnemy(World world, TiledMap map, TekoiGame game) {
         BodyDef basicEnemyBdef = new BodyDef();
         FixtureDef basicEnemyFdef = new FixtureDef();
         PolygonShape basicEnemyShape = new PolygonShape();
         Body basicEnemyBody;
-        if(map.getLayers().get(Map.MAP_BASIC_ENEMY) != null)
+        if (map.getLayers().get(Map.MAP_BASIC_ENEMY) != null)
             for (MapObject object : map.getLayers().get(Map.MAP_BASIC_ENEMY).getObjects().getByType(RectangleMapObject.class)) {
                 Rectangle rect = ((RectangleMapObject) object).getRectangle();
                 basicEnemyBdef.type = BodyDef.BodyType.DynamicBody;
@@ -63,7 +72,7 @@ public class B2WorldCreator {
                 basicEnemyShape.setAsBox((rect.getWidth() / 2) / TekoiGame.PPM, (rect.getHeight() / 2) / TekoiGame.PPM);
                 basicEnemyFdef.shape = basicEnemyShape;
                 basicEnemyFdef.filter.categoryBits = Bits.LEVEL_END_BIT;
-                basicEnemyFdef.filter.maskBits = Bits.PLAYER_BIT | Bits.BASE_BIT | Bits.BRICK_BIT ;
+                basicEnemyFdef.filter.maskBits = Bits.PLAYER_BIT | Bits.BASE_BIT | Bits.BRICK_BIT;
                 MassData massData = new MassData();
                 massData.mass = 1000000;
                 basicEnemyBody.setMassData(massData);
