@@ -38,7 +38,7 @@ public class WorldContactListener implements ContactListener {
         Fixture fixB = contact.getFixtureB();
 
         checkCharacterOnGrounds(contact);
-
+        checkCharacterAttackEnemyContact(contact);
     }
 
     @Override
@@ -47,9 +47,9 @@ public class WorldContactListener implements ContactListener {
         Fixture fixB = contact.getFixtureB();
 
         uncheckCharacterOnGrounds(contact);
-
-
+        uncheckCharacterAttackEnemyContact(contact);
     }
+
 
     @Override
     public void preSolve(Contact contact, Manifold oldManifold) {
@@ -62,44 +62,64 @@ public class WorldContactListener implements ContactListener {
     }
 
 
-
-
-    private void checkCharacterOnGrounds(Contact contact){
+    private void checkCharacterOnGrounds(Contact contact) {
 
         //Jump and Character change check
-        if(isContact(contact, Map.PLAYER_BASE, Map.MAP_BLOCKS)
-            || isContact(contact, Map.PLAYER_BASE, Map.MAP_PASS_BLOCKS)
-            || isContact(contact, Map.PLAYER_BASE, Map.MAP_SLOPE)
-            || isContact(contact, Map.PLAYER_BASE, Map.MAP_PUSH_BLOCKS)
-            || isContact(contact, Map.PLAYER_BASE, Map.MAP_LEVEL_END_BLOCK)){
+        if (isContact(contact, Map.PLAYER_BASE, Map.MAP_BLOCKS)
+                || isContact(contact, Map.PLAYER_BASE, Map.MAP_PASS_BLOCKS)
+                || isContact(contact, Map.PLAYER_BASE, Map.MAP_SLOPE)
+                || isContact(contact, Map.PLAYER_BASE, Map.MAP_PUSH_BLOCKS)
+                || isContact(contact, Map.PLAYER_BASE, Map.MAP_LEVEL_END_BLOCK)) {
             onGrounds++;
         }
     }
 
-    private void uncheckCharacterOnGrounds(Contact contact){
-        if(isContact(contact, Map.PLAYER_BASE, Map.MAP_BLOCKS)
+    private void uncheckCharacterOnGrounds(Contact contact) {
+        if (isContact(contact, Map.PLAYER_BASE, Map.MAP_BLOCKS)
                 || isContact(contact, Map.PLAYER_BASE, Map.MAP_PASS_BLOCKS)
                 || isContact(contact, Map.PLAYER_BASE, Map.MAP_SLOPE)
                 || isContact(contact, Map.PLAYER_BASE, Map.MAP_PUSH_BLOCKS)
-                || isContact(contact, Map.PLAYER_BASE, Map.MAP_LEVEL_END_BLOCK)){
+                || isContact(contact, Map.PLAYER_BASE, Map.MAP_LEVEL_END_BLOCK)) {
             onGrounds--;
         }
     }
 
 
-    private boolean isContact(Contact contact, String a, String b){
+    private void checkCharacterAttackEnemyContact(Contact contact) {
         Fixture fixA = contact.getFixtureA();
         Fixture fixB = contact.getFixtureB();
-        if((fixA.getUserData() == a && fixB.getUserData() == b) || (fixA.getUserData() == b && fixB.getUserData() == a)){
+
+        if (isContact(contact, Map.PLAYER_ATTACK_SHAPE, Map.MAP_BASIC_ENEMY)) {
+            Fixture basic_enemy = fixA.getUserData() == Map.MAP_BASIC_ENEMY ? fixA : fixB;
+            bodiesToRemove.add(basic_enemy.getBody());
+        }
+    }
+
+    private void uncheckCharacterAttackEnemyContact(Contact contact) {
+        Fixture fixA = contact.getFixtureA();
+        Fixture fixB = contact.getFixtureB();
+
+        if (isContact(contact, Map.PLAYER_ATTACK_SHAPE, Map.MAP_BASIC_ENEMY)) {
+            Fixture basic_enemy = fixA.getUserData() == Map.MAP_BASIC_ENEMY ? fixA : fixB;
+            bodiesToRemove.removeValue(basic_enemy.getBody(), true);
+        }
+    }
+
+
+    private boolean isContact(Contact contact, String a, String b) {
+        Fixture fixA = contact.getFixtureA();
+        Fixture fixB = contact.getFixtureB();
+        if ((fixA.getUserData() == a && fixB.getUserData() == b) || (fixA.getUserData() == b && fixB.getUserData() == a)) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
-    public boolean isOnGrounds(){
-        if(onGrounds == 1) {
+
+    public boolean isOnGrounds() {
+        if (onGrounds == 1) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }

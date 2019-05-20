@@ -25,7 +25,7 @@ import com.tekoi.game.utils.GdxUtils;
 public class LoadingScreen extends ScreenAdapter{
 
     private static final float PROGRESS_BAR_WIDTH = 400;
-    private static final float PROGRESS_BAR_HEIGHT = 100;
+    private static final float PROGRESS_BAR_HEIGHT = 30;
     private ShapeRenderer shapeRenderer;
     private Viewport viewport;
     private Camera camera;
@@ -58,6 +58,9 @@ public class LoadingScreen extends ScreenAdapter{
         //Character
         assetManager.load(ImagesPaths.CHAR_ATLAS, Texture.class);
         assetManager.load(ImagesPaths.CHAR_ATTACK, Texture.class);
+
+        //Enemies
+        assetManager.load(ImagesPaths.BASIC_ENEMY, Texture.class);
 
         //Levels
         assetManager.load(LevelNames.LEVEL_1, TiledMap.class);

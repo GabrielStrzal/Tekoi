@@ -14,13 +14,14 @@ public class Map {
     public static final String MAP_WARP_A = "warp_a";
     public static final String MAP_WARP_B = "warp_b";
     public static final String MAP_INFO = "info";
+    public static final String MAP_BASIC_ENEMY = "basicEnemy";
+
 
 
     //Object Descriptions
     public static final String PLAYER_BODY = "playerBody";
     public static final String PLAYER_BASE = "playerBase";
-    public static final String PLAYER_ATTACK_RIGHT = "playerAttackRight";
-    public static final String PLAYER_ATTACK_LEFT = "playerAttackLeft";
+    public static final String PLAYER_ATTACK_SHAPE = "playerAttackShape";
 
 
 

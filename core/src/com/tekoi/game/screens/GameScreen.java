@@ -6,22 +6,24 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.tekoi.game.TekoiGame;
 import com.tekoi.game.config.GameConfig;
 import com.tekoi.game.constants.ImagesPaths;
 import com.tekoi.game.constants.LevelNames;
+import com.tekoi.game.entity.BasicEnemy;
+import com.tekoi.game.entity.Enemy;
 import com.tekoi.game.entity.Player;
 import com.tekoi.game.utils.GdxUtils;
 import com.tekoi.game.worldCreator.B2WorldCreator;
@@ -38,7 +40,6 @@ public class GameScreen implements Screen {
 
     private TiledMap map;
     private OrthogonalTiledMapRenderer mapRenderer;
-    private Texture background;
 
     private ShapeRenderer renderer;
 
@@ -49,19 +50,12 @@ public class GameScreen implements Screen {
 
     private float xVelocity = 2f;
     private float gravity = -10f;
-    private float jumpSpeed = 250f;
 
     private float accumulator = 0;
 
 
     private WorldContactListener worldContactListener;
     private B2WorldCreator b2World;
-    private float numberOfFlowerInLevel;
-    private boolean waitRestartComplete;
-
-    //character movement
-    private boolean isDirectionUp;
-    private boolean isDirectionRight = true;
 
     private boolean isDirectionRightPressed = false;
     private boolean isDirectionLeftPressed = false;
@@ -72,9 +66,6 @@ public class GameScreen implements Screen {
     }
 
     private STATE state;
-
-    private BitmapFont bitmapFont;
-    private GlyphLayout layout = new GlyphLayout();
 
 
     public GameScreen(TekoiGame game, int level) {
@@ -93,7 +84,6 @@ public class GameScreen implements Screen {
         mapRenderer = new OrthogonalTiledMapRenderer(map, 1 / TekoiGame.PPM);
         gamecam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
         player = new Player(world, (Texture) assetManager.get(ImagesPaths.CHAR_ATLAS));
-        //background = assetManager.get(ImagesPaths.GAME_BACKGROUND);
 
 
         b2World = new B2WorldCreator(world, map, game);
@@ -116,16 +106,51 @@ public class GameScreen implements Screen {
             accumulator -= 1f / 60f;
         }
 
+        updateEnemies();
+        removeDeadEnemiesFromWorld();
         handleInput(dt);
 
         player.update(dt);
         TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(0);
         gamecam.position.x = MathUtils.clamp(player.b2body.getPosition().x, gamePort.getWorldWidth() / 2, (layer.getTileWidth() * layer.getWidth()) / TekoiGame.PPM - gamePort.getWorldWidth() / 2);
-        //gamecam.position.y = MathUtils.clamp(gamecam.position.y, gamePort.getWorldHeight()/2, mapHeight - gamePort.getWorldHeight()/2);
 
 
         gamecam.update();
         mapRenderer.setView(gamecam);
+    }
+
+
+    private void updateEnemies() {
+
+        if (!player.state.equals(Player.PLAYER_STATE.ATTACKING)) {
+            for (Enemy enemy : b2World.enemies) {
+                enemy.attacked = false;
+            }
+        }
+
+
+        Array<Body> bodies = worldContactListener.getBodiesToRemove();
+        for (Body b : bodies) {
+            Enemy enemy = b2World.enemies.get(b2World.enemies.indexOf((BasicEnemy) b.getUserData(), true));
+            if (player.state.equals(Player.PLAYER_STATE.ATTACKING)) {
+                if (!enemy.attacked) {
+                    enemy.HP = enemy.HP - 1;
+                    enemy.attacked = true;
+                }
+            }
+        }
+
+    }
+
+    private void removeDeadEnemiesFromWorld() {
+
+        for (Enemy enemy : b2World.enemies) {
+            if (enemy.HP <= 0) {
+                b2World.enemies.removeValue(enemy, true);
+                world.destroyBody(enemy.getBody());
+            }
+        }
+
     }
 
     private void handleInput(float dt) {
@@ -156,7 +181,7 @@ public class GameScreen implements Screen {
             player.b2body.applyForceToCenter(-(player.b2body.getLinearVelocity().x) * 2, player.b2body.getLinearVelocity().y, true);
         }
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) ) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             player.attack();
         }
 
@@ -207,8 +232,17 @@ public class GameScreen implements Screen {
     private void draw(float delta) {
         game.batch.setProjectionMatrix(gamecam.combined);
         game.batch.begin();
+
+        drawEnemies(delta);
         player.draw(game.batch);
         game.batch.end();
+
+    }
+
+    private void drawEnemies(float delta) {
+        for(Enemy enemy: b2World.enemies){
+            enemy.render(game.batch, delta);
+        }
 
     }
 

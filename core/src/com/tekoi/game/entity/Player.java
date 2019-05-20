@@ -22,6 +22,7 @@ public class Player extends Sprite {
 
     public World world;
     public Body b2body;
+    public Body b2body_attack;
 
     public static final int WIDTH = 64;
     public static final int HEIGHT = 64;
@@ -35,7 +36,6 @@ public class Player extends Sprite {
     public boolean playerFacingRight = true;
 
     long attackStartTime;
-
 
     public enum PLAYER_STATE {
         IDLE, MOVING, ATTACKING, CROUCHING, DEAD
@@ -57,7 +57,6 @@ public class Player extends Sprite {
         walking.setPlayMode(Animation.PlayMode.LOOP);
         standing = regions[7];
         action = new TextureRegion(new Texture(Gdx.files.internal(ImagesPaths.CHAR_ATTACK)));
-
         regionToDraw = standing;
         definePlayer(x, y);
 
@@ -66,6 +65,7 @@ public class Player extends Sprite {
     public void attack() {
         if (state != PLAYER_STATE.ATTACKING) {// para nao permitir que continue iniciando o ataque sempre
             attackStartTime = TimeUtils.millis();
+            createAttackShape(b2body);
         }
         state = PLAYER_STATE.ATTACKING;
     }
@@ -74,6 +74,8 @@ public class Player extends Sprite {
         animationTimer += dt;
 
         setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
+
+
 
         switch (state) {
             case IDLE: {
@@ -89,6 +91,8 @@ public class Player extends Sprite {
             case ATTACKING: {
                 checkAttackOver();
                 regionToDraw = action;
+                updateAttackShape();
+
 
             }
             break;
@@ -101,7 +105,6 @@ public class Player extends Sprite {
             }
             break;
         }
-
         if (!playerFacingRight) {
             if (!regionToDraw.isFlipX()) regionToDraw.flip(true, false);
         } else {
@@ -111,6 +114,7 @@ public class Player extends Sprite {
 
 
     }
+
 
     private void checkPlayerVelocity() {
         float xSpeed = b2body.getLinearVelocity().x;
@@ -133,6 +137,7 @@ public class Player extends Sprite {
         long attackElapsedTime = TimeUtils.timeSinceMillis(attackStartTime);
         if (attackElapsedTime > 500) {
             state = PLAYER_STATE.IDLE;
+            removeAttackShape();
         }
 
 
@@ -179,30 +184,38 @@ public class Player extends Sprite {
         baseSensorFdef.filter.maskBits = Bits.BRICK_BIT | Bits.PASS_BLOCK_BIT;
         b2body.createFixture(baseSensorFdef).setUserData(Map.PLAYER_BASE);
 
-        //Attack right
-        FixtureDef attackRightSensorFdef = new FixtureDef();
-
-        PolygonShape rightAttackShape = new PolygonShape();
-        rightAttackShape.setAsBox(15 / TekoiGame.PPM, 16 / TekoiGame.PPM,
-                new Vector2(10 / TekoiGame.PPM, -6 / TekoiGame.PPM), 0);
-        attackRightSensorFdef.shape = rightAttackShape;
-        attackRightSensorFdef.isSensor = true;
-        attackRightSensorFdef.filter.categoryBits = Bits.BASE_BIT;
-        attackRightSensorFdef.filter.maskBits = Bits.BRICK_BIT | Bits.PASS_BLOCK_BIT;
-        b2body.createFixture(attackRightSensorFdef).setUserData(Map.PLAYER_ATTACK_RIGHT);
 
 
-        //Attack left
-        FixtureDef attackLeftSensorFdef = new FixtureDef();
-        PolygonShape leftAttackShape = new PolygonShape();
-        leftAttackShape.setAsBox(15 / TekoiGame.PPM, 16 / TekoiGame.PPM,
-                new Vector2(-10 / TekoiGame.PPM, -6 / TekoiGame.PPM), 0);
-        attackLeftSensorFdef.shape = leftAttackShape;
-        attackLeftSensorFdef.isSensor = true;
-        attackLeftSensorFdef.filter.categoryBits = Bits.BASE_BIT;
-        attackLeftSensorFdef.filter.maskBits = Bits.BRICK_BIT | Bits.PASS_BLOCK_BIT;
-        b2body.createFixture(attackLeftSensorFdef).setUserData(Map.PLAYER_ATTACK_LEFT);
+    }
 
+    private void createAttackShape(Body b2body){
+
+        BodyDef bdef = new BodyDef();
+        bdef.position.set(b2body.getPosition().x, b2body.getPosition().y); //initial position
+        bdef.type = BodyDef.BodyType.DynamicBody;
+        b2body_attack = world.createBody(bdef);
+        FixtureDef attackSensorFdef = new FixtureDef();
+        PolygonShape attackShape = new PolygonShape();
+
+        int direction = playerFacingRight ?  10 :  -10;
+
+        attackShape.setAsBox(15 / TekoiGame.PPM, 16 / TekoiGame.PPM,
+                new Vector2(direction / TekoiGame.PPM, -6 / TekoiGame.PPM), 0);
+        attackSensorFdef.shape = attackShape;
+        attackSensorFdef.isSensor = true;
+
+        attackSensorFdef.filter.categoryBits = Bits.BASE_BIT;
+        attackSensorFdef.filter.maskBits = Bits.BRICK_BIT | Bits.PASS_BLOCK_BIT;
+        b2body_attack.createFixture(attackSensorFdef).setUserData(Map.PLAYER_ATTACK_SHAPE);
+
+    }
+
+    private void updateAttackShape() {
+        b2body_attack.setTransform(b2body.getPosition().x, b2body.getPosition().y, 0);
+    }
+
+    private void removeAttackShape(){
+        world.destroyBody(b2body_attack);
     }
 
 
