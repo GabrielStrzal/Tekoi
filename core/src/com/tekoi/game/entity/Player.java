@@ -157,7 +157,7 @@ public class Player extends Sprite {
         bodyShape.setAsBox(15 / TekoiGame.PPM, (26) / TekoiGame.PPM, new Vector2(0, 0 / TekoiGame.PPM), 0);
         bodyFdef.filter.categoryBits = Bits.PLAYER_BIT;
         bodyFdef.filter.maskBits = Bits.BRICK_BIT | Bits.LEVEL_END_BIT
-                | Bits.DAMAGE_BIT | Bits.PASS_BLOCK_BIT;
+                | Bits.DAMAGE_BIT | Bits.PASS_BLOCK_BIT | Bits.ENEMY_BIT;
         bodyFdef.shape = bodyShape;
         b2body.createFixture(bodyFdef).setUserData(Map.PLAYER_BODY);
 
@@ -205,7 +205,7 @@ public class Player extends Sprite {
         attackSensorFdef.isSensor = true;
 
         attackSensorFdef.filter.categoryBits = Bits.BASE_BIT;
-        attackSensorFdef.filter.maskBits = Bits.BRICK_BIT | Bits.PASS_BLOCK_BIT;
+        attackSensorFdef.filter.maskBits = Bits.BRICK_BIT | Bits.PASS_BLOCK_BIT | Bits.ENEMY_BIT;
         b2body_attack.createFixture(attackSensorFdef).setUserData(Map.PLAYER_ATTACK_SHAPE);
 
     }

@@ -61,6 +61,7 @@ public class LoadingScreen extends ScreenAdapter{
 
         //Enemies
         assetManager.load(ImagesPaths.BASIC_ENEMY, Texture.class);
+        assetManager.load(ImagesPaths.WALKING_ENEMY, Texture.class);
 
         //Levels
         assetManager.load(LevelNames.LEVEL_1, TiledMap.class);

@@ -13,6 +13,7 @@ public class ImagesPaths {
 
     //Enemies
     public static final String BASIC_ENEMY = "images/enemies/basic_enemy_64x64.png";
+    public static final String WALKING_ENEMY = "images/enemies/walking_enemy_64x64.png";
 
     private ImagesPaths() {}
 }

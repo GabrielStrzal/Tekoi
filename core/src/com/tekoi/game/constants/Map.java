@@ -15,6 +15,7 @@ public class Map {
     public static final String MAP_WARP_B = "warp_b";
     public static final String MAP_INFO = "info";
     public static final String MAP_BASIC_ENEMY = "basicEnemy";
+    public static final String MAP_WALKING_ENEMY = "walkingEnemy";
 
 
 

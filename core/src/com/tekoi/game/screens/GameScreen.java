@@ -22,8 +22,7 @@ import com.tekoi.game.TekoiGame;
 import com.tekoi.game.config.GameConfig;
 import com.tekoi.game.constants.ImagesPaths;
 import com.tekoi.game.constants.LevelNames;
-import com.tekoi.game.entity.BasicEnemy;
-import com.tekoi.game.entity.Enemy;
+import com.tekoi.game.entity.enemies.Enemy;
 import com.tekoi.game.entity.Player;
 import com.tekoi.game.utils.GdxUtils;
 import com.tekoi.game.worldCreator.B2WorldCreator;
@@ -121,17 +120,17 @@ public class GameScreen implements Screen {
 
 
     private void updateEnemies() {
-
-        if (!player.state.equals(Player.PLAYER_STATE.ATTACKING)) {
-            for (Enemy enemy : b2World.enemies) {
+        for (Enemy enemy : b2World.enemies) {
+            if (!player.state.equals(Player.PLAYER_STATE.ATTACKING)) {
                 enemy.attacked = false;
             }
+            enemy.update();
         }
 
 
         Array<Body> bodies = worldContactListener.getBodiesToRemove();
         for (Body b : bodies) {
-            Enemy enemy = b2World.enemies.get(b2World.enemies.indexOf((BasicEnemy) b.getUserData(), true));
+            Enemy enemy = b2World.enemies.get(b2World.enemies.indexOf((Enemy) b.getUserData(), true));
             if (player.state.equals(Player.PLAYER_STATE.ATTACKING)) {
                 if (!enemy.attacked) {
                     enemy.HP = enemy.HP - 1;
@@ -241,7 +240,7 @@ public class GameScreen implements Screen {
 
     private void drawEnemies(float delta) {
         for (Enemy enemy: b2World.enemies){
-            enemy.render(game.batch, delta);
+            enemy.draw(game.batch);
         }
 
     }

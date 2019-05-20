@@ -10,6 +10,7 @@ public class Bits {
     public static final short LEVEL_END_BIT = 0x0032;
     public static final short DAMAGE_BIT = 0x0064;
     public static final short PASS_BLOCK_BIT = 0x0128;
+    public static final short ENEMY_BIT = 0x0256;
 
 
     public Bits() {

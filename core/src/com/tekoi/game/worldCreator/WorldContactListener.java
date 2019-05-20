@@ -93,6 +93,12 @@ public class WorldContactListener implements ContactListener {
             Fixture basic_enemy = fixA.getUserData() == Map.MAP_BASIC_ENEMY ? fixA : fixB;
             bodiesToRemove.add(basic_enemy.getBody());
         }
+
+        if (isContact(contact, Map.PLAYER_ATTACK_SHAPE, Map.MAP_WALKING_ENEMY)) {
+            Fixture basic_enemy = fixA.getUserData() == Map.MAP_WALKING_ENEMY ? fixA : fixB;
+            bodiesToRemove.add(basic_enemy.getBody());
+        }
+
     }
 
     private void uncheckCharacterAttackEnemyContact(Contact contact) {
@@ -101,6 +107,11 @@ public class WorldContactListener implements ContactListener {
 
         if (isContact(contact, Map.PLAYER_ATTACK_SHAPE, Map.MAP_BASIC_ENEMY)) {
             Fixture basic_enemy = fixA.getUserData() == Map.MAP_BASIC_ENEMY ? fixA : fixB;
+            bodiesToRemove.removeValue(basic_enemy.getBody(), true);
+        }
+
+        if (isContact(contact, Map.PLAYER_ATTACK_SHAPE, Map.MAP_WALKING_ENEMY)) {
+            Fixture basic_enemy = fixA.getUserData() == Map.MAP_WALKING_ENEMY ? fixA : fixB;
             bodiesToRemove.removeValue(basic_enemy.getBody(), true);
         }
     }

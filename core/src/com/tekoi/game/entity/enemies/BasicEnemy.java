@@ -1,16 +1,16 @@
-package com.tekoi.game.entity;
+package com.tekoi.game.entity.enemies;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.tekoi.game.TekoiGame;
-import com.tekoi.game.constants.ImagesPaths;
+
 
 public class BasicEnemy extends Enemy {
 
-    public BasicEnemy(Body body, TekoiGame game) {
-        super(body, game);
-        texture = assetManager.get(ImagesPaths.BASIC_ENEMY);
+    public BasicEnemy(Body body, TekoiGame game, Texture texture) {
+        super(body, game, texture);
         height = texture.getHeight() / TekoiGame.PPM;
         width = texture.getWidth() / TekoiGame.PPM;
-        HP = 3;
+//        HP = 3;
     }
 }
