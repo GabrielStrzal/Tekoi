@@ -240,7 +240,7 @@ public class GameScreen implements Screen {
     }
 
     private void drawEnemies(float delta) {
-        for(Enemy enemy: b2World.enemies){
+        for (Enemy enemy: b2World.enemies){
             enemy.render(game.batch, delta);
         }
 
