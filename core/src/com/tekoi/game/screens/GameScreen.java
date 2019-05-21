@@ -120,7 +120,7 @@ public class GameScreen implements Screen {
 
 
     private void updateEnemies() {
-        for (Enemy enemy : b2World.enemies) {
+        for (Enemy enemy : b2World.b2WorldCreatorEnemies.enemies) {
             if (!player.state.equals(Player.PLAYER_STATE.ATTACKING)) {
                 enemy.attacked = false;
             }
@@ -130,7 +130,7 @@ public class GameScreen implements Screen {
 
         Array<Body> bodies = worldContactListener.getBodiesToRemove();
         for (Body b : bodies) {
-            Enemy enemy = b2World.enemies.get(b2World.enemies.indexOf((Enemy) b.getUserData(), true));
+            Enemy enemy = b2World.b2WorldCreatorEnemies.enemies.get(b2World.b2WorldCreatorEnemies.enemies.indexOf((Enemy) b.getUserData(), true));
             if (player.state.equals(Player.PLAYER_STATE.ATTACKING)) {
                 if (!enemy.attacked) {
                     enemy.HP = enemy.HP - 1;
@@ -143,9 +143,9 @@ public class GameScreen implements Screen {
 
     private void removeDeadEnemiesFromWorld() {
 
-        for (Enemy enemy : b2World.enemies) {
+        for (Enemy enemy : b2World.b2WorldCreatorEnemies.enemies) {
             if (enemy.HP <= 0) {
-                b2World.enemies.removeValue(enemy, true);
+                b2World.b2WorldCreatorEnemies.enemies.removeValue(enemy, true);
                 world.destroyBody(enemy.getBody());
             }
         }
@@ -239,7 +239,7 @@ public class GameScreen implements Screen {
     }
 
     private void drawEnemies(float delta) {
-        for (Enemy enemy: b2World.enemies){
+        for (Enemy enemy: b2World.b2WorldCreatorEnemies.enemies){
             enemy.draw(game.batch);
         }
 
