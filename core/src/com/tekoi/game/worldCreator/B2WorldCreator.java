@@ -29,10 +29,7 @@ public class B2WorldCreator {
     public B2WorldCreator(World world, TiledMap map, TekoiGame game) {
 
         factory = new EnemyFactory();
-
-
         enemies = new Array<Enemy>();
-
 
         createBlocks(world, map);
         createBasicEnemy(world, map, game);
@@ -65,30 +62,23 @@ public class B2WorldCreator {
         FixtureDef walkingEnemyFdef = new FixtureDef();
         PolygonShape walkingEnemyShape = new PolygonShape();
         BodyDef walkingEnemyBdef = new BodyDef();
-        if(map.getLayers().get(Map.MAP_WALKING_ENEMY) != null)
+        if (map.getLayers().get(Map.MAP_WALKING_ENEMY) != null)
             for (MapObject object : map.getLayers().get(Map.MAP_WALKING_ENEMY).getObjects()) {
                 Ellipse tiledMapEllipse = ((EllipseMapObject) object).getEllipse();
 
                 walkingEnemyBdef.type = BodyDef.BodyType.DynamicBody;
                 walkingEnemyBdef.position.set((tiledMapEllipse.x + tiledMapEllipse.width / 2) / TekoiGame.PPM,
                         (tiledMapEllipse.y + tiledMapEllipse.height / 2) / TekoiGame.PPM);
-                walkingEnemyShape.setAsBox((32/2) / TekoiGame.PPM, (64/2) / TekoiGame.PPM);
+                walkingEnemyShape.setAsBox((32 / 2) / TekoiGame.PPM, (64 / 2) / TekoiGame.PPM);
                 walkingEnemyFdef.shape = walkingEnemyShape;
-//                walkingEnemyFdef.isSensor = true;
-
-
-
                 walkingEnemyFdef.filter.categoryBits = Bits.ENEMY_BIT;
                 walkingEnemyFdef.filter.maskBits = Bits.PLAYER_BIT | Bits.BASE_BIT | Bits.BRICK_BIT;
-
                 Body walkingEnemyBody = world.createBody(walkingEnemyBdef);
                 MassData massData = new MassData();
                 massData.mass = 1000000;
                 walkingEnemyBody.setMassData(massData);
                 walkingEnemyBody.createFixture(walkingEnemyFdef).setUserData(Map.MAP_WALKING_ENEMY);
-
                 Enemy f = factory.createEnemy(walkingEnemyBody, game, EnemyFactory.EnemyType.WALKING);
-
                 walkingEnemyBody.setUserData(f);
                 enemies.add(f);
 
@@ -115,7 +105,6 @@ public class B2WorldCreator {
                 massData.mass = 1000000;
                 basicEnemyBody.setMassData(massData);
                 basicEnemyBody.createFixture(basicEnemyFdef).setUserData(Map.MAP_BASIC_ENEMY);
-
                 Enemy basicEnemy = factory.createEnemy(basicEnemyBody, game, EnemyFactory.EnemyType.BASIC);
                 basicEnemyBody.setUserData(basicEnemy);
                 enemies.add(basicEnemy);
