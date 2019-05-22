@@ -119,16 +119,14 @@ public class Player extends Sprite {
     private void checkPlayerVelocity() {
         float xSpeed = b2body.getLinearVelocity().x;
 
-        if (xSpeed < 0) {
+        if (xSpeed < -.5) {
             playerFacingRight = false;
-        } else if (xSpeed > 0) {
-            playerFacingRight = true;
-        }
-
-        if (xSpeed == 0) {
-            state = PLAYER_STATE.IDLE;
-        } else if (xSpeed != 0) {
             state = PLAYER_STATE.MOVING;
+        } else if (xSpeed > .5) {
+            playerFacingRight = true;
+            state = PLAYER_STATE.MOVING;
+        } else {
+            state = PLAYER_STATE.IDLE;
         }
     }
 

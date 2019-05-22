@@ -158,26 +158,14 @@ public class GameScreen implements Screen {
         if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && worldContactListener.isOnGrounds()) {
             player.b2body.applyLinearImpulse(new Vector2(0, 4f), player.b2body.getWorldCenter(), true);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.b2body.getLinearVelocity().x <= 2) {
-            isDirectionRightPressed = true;
-        } else {
-            isDirectionRightPressed = false;
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.b2body.getLinearVelocity().x >= -2) {
-            isDirectionLeftPressed = true;
-        } else {
-            isDirectionLeftPressed = false;
-        }
-
-
-        if (isDirectionRightPressed) {
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.b2body.getLinearVelocity().x <= 50) {
             player.b2body.setLinearVelocity(xVelocity, player.b2body.getLinearVelocity().y);
             player.playerFacingRight = true;
-        } else if (isDirectionLeftPressed) {
+        } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.b2body.getLinearVelocity().x >= -50) {
             player.b2body.setLinearVelocity(-xVelocity, player.b2body.getLinearVelocity().y);
             player.playerFacingRight = false;
         } else {
-            player.b2body.applyForceToCenter(-(player.b2body.getLinearVelocity().x) * 2, player.b2body.getLinearVelocity().y, true);
+            player.b2body.applyForceToCenter(-(player.b2body.getLinearVelocity().x) * 4, player.b2body.getLinearVelocity().y, true);
         }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
