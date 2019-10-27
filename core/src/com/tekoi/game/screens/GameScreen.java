@@ -154,19 +154,24 @@ public class GameScreen implements Screen {
 
     private void handleInput(float dt) {
 
+        float JUMP_SPEED = 5.4f;
+        int TOP_LINEAR_VELOCITY = 70;
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && worldContactListener.isOnGrounds()) {
-            player.b2body.applyLinearImpulse(new Vector2(0, 5f), player.b2body.getWorldCenter(), true);
+            player.b2body.applyLinearImpulse(new Vector2(0, JUMP_SPEED), player.b2body.getWorldCenter(), true);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.b2body.getLinearVelocity().x <= 50) {
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.b2body.getLinearVelocity().x <= TOP_LINEAR_VELOCITY) {
             player.b2body.setLinearVelocity(xVelocity, player.b2body.getLinearVelocity().y);
             player.playerFacingRight = true;
-        } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.b2body.getLinearVelocity().x >= -50) {
+        } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.b2body.getLinearVelocity().x >= -TOP_LINEAR_VELOCITY) {
             player.b2body.setLinearVelocity(-xVelocity, player.b2body.getLinearVelocity().y);
             player.playerFacingRight = false;
-        } else {
-            player.b2body.applyForceToCenter(-(player.b2body.getLinearVelocity().x) * 4, player.b2body.getLinearVelocity().y, true);
+        } else { //apply only to X some force to reduce speed if player not moving
+            player.b2body.applyForceToCenter(-(player.b2body.getLinearVelocity().x) * 2, 0, true);
         }
+        //remove x speed if player is slower (maybe remove this code later)
+        if(player.b2body.getLinearVelocity().x < .2 && player.b2body.getLinearVelocity().x > -.2)
+            player.b2body.setLinearVelocity(0, player.b2body.getLinearVelocity().y);
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             player.attack();
