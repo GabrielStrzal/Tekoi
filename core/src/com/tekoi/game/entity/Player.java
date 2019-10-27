@@ -24,13 +24,14 @@ public class Player extends Sprite {
     public Body b2body;
     public Body b2body_attack;
 
-    public static final int WIDTH = 64;
+    public static final int WIDTH = 95;
     public static final int HEIGHT = 64;
 
     private float animationTimer = 0;
     private final Animation walking;
     private final TextureRegion standing;
-    private final TextureRegion action;
+    private final TextureRegion attack;
+    private final Animation action;
 
     private TextureRegion regionToDraw;
     public boolean playerFacingRight = true;
@@ -52,11 +53,13 @@ public class Player extends Sprite {
         super(texture);
         this.world = world;
 
-        TextureRegion[] regions = TextureRegion.split(texture, WIDTH, HEIGHT)[0];
-        walking = new Animation(0.1F, regions[0], regions[1], regions[2], regions[3], regions[4], regions[5], regions[6]);
+        TextureRegion[][] regions = TextureRegion.split(texture, WIDTH, HEIGHT);
+        walking = new Animation(0.1F, regions[1][0], regions[1][1], regions[1][2], regions[1][3], regions[1][4], regions[1][5], regions[1][6]);
         walking.setPlayMode(Animation.PlayMode.LOOP);
-        standing = regions[7];
-        action = new TextureRegion(new Texture(Gdx.files.internal(ImagesPaths.CHAR_ATTACK)));
+        standing = regions[0][0];
+        action = new Animation(0.9F, regions[2][1], regions[2][2], regions[2][3]);
+        action.setPlayMode(Animation.PlayMode.LOOP);
+        attack = regions[2][2];
         regionToDraw = standing;
         definePlayer(x, y);
 
@@ -90,7 +93,8 @@ public class Player extends Sprite {
             break;
             case ATTACKING: {
                 checkAttackOver();
-                regionToDraw = action;
+                //regionToDraw = (TextureRegion) action.getKeyFrame(animationTimer);
+                regionToDraw = attack;
                 updateAttackShape();
 
 
@@ -152,7 +156,7 @@ public class Player extends Sprite {
         //Body Fixture
         FixtureDef bodyFdef = new FixtureDef();
         PolygonShape bodyShape = new PolygonShape();
-        bodyShape.setAsBox(15 / TekoiGame.PPM, (26) / TekoiGame.PPM, new Vector2(0, 0 / TekoiGame.PPM), 0);
+        bodyShape.setAsBox(15 / TekoiGame.PPM, (26) / TekoiGame.PPM, new Vector2(0 / TekoiGame.PPM, 0 / TekoiGame.PPM), 0);
         bodyFdef.filter.categoryBits = Bits.PLAYER_BIT;
         bodyFdef.filter.maskBits = Bits.BRICK_BIT | Bits.LEVEL_END_BIT
                 | Bits.DAMAGE_BIT | Bits.PASS_BLOCK_BIT | Bits.ENEMY_BIT;
@@ -164,7 +168,7 @@ public class Player extends Sprite {
         FixtureDef fdefCircle = new FixtureDef();
         CircleShape circleShape = new CircleShape();
         circleShape.setRadius(15 / TekoiGame.PPM);
-        circleShape.setPosition(new Vector2(0, -15 / TekoiGame.PPM));
+        circleShape.setPosition(new Vector2(0 / TekoiGame.PPM, -15 / TekoiGame.PPM));
         fdefCircle.filter.categoryBits = Bits.PLAYER_BIT;
         fdefCircle.filter.maskBits = Bits.BRICK_BIT;
         fdefCircle.shape = circleShape;
@@ -175,7 +179,7 @@ public class Player extends Sprite {
         //Base Sensor
         FixtureDef baseSensorFdef = new FixtureDef();
         PolygonShape baseShape = new PolygonShape();
-        baseShape.setAsBox(15 / TekoiGame.PPM, 16 / TekoiGame.PPM, new Vector2(0, -22 / TekoiGame.PPM), 0);
+        baseShape.setAsBox(15 / TekoiGame.PPM, 16 / TekoiGame.PPM, new Vector2(0 / TekoiGame.PPM, -22 / TekoiGame.PPM), 0);
         baseSensorFdef.shape = baseShape;
         baseSensorFdef.isSensor = true;
         baseSensorFdef.filter.categoryBits = Bits.BASE_BIT;

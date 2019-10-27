@@ -57,7 +57,6 @@ public class LoadingScreen extends ScreenAdapter{
 
         //Character
         assetManager.load(ImagesPaths.CHAR_ATLAS, Texture.class);
-        assetManager.load(ImagesPaths.CHAR_ATTACK, Texture.class);
 
         //Enemies
         assetManager.load(ImagesPaths.BASIC_ENEMY, Texture.class);

@@ -8,8 +8,7 @@ public class ImagesPaths {
     public static final String MENU_PLAY_BUTTON_PRESSED = "images/menu/menu_play_pressed.png";
 
     //Character
-    public static final String CHAR_ATLAS = "images/char/char_atlas.png";
-    public static final String CHAR_ATTACK = "images/char/char_attack.png";
+    public static final String CHAR_ATLAS = "images/char/char_atlas_64x64.png";
 
     //Enemies
     public static final String BASIC_ENEMY = "images/enemies/basic_enemy_64x64.png";
