@@ -27,6 +27,8 @@ public class Player extends Sprite {
     public static final int WIDTH = 95;
     public static final int HEIGHT = 64;
 
+    public static final int ATTACK_TIME = 150;
+
     private float animationTimer = 0;
     private final Animation walking;
     private final TextureRegion standing;
@@ -137,7 +139,7 @@ public class Player extends Sprite {
 
     private void checkAttackOver() {
         long attackElapsedTime = TimeUtils.timeSinceMillis(attackStartTime);
-        if (attackElapsedTime > 500) {
+        if (attackElapsedTime > ATTACK_TIME) {
             state = PLAYER_STATE.IDLE;
             removeAttackShape();
         }
