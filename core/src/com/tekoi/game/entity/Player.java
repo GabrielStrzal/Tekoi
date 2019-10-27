@@ -1,6 +1,5 @@
 package com.tekoi.game.entity;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -15,7 +14,6 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.tekoi.game.TekoiGame;
 import com.tekoi.game.constants.Bits;
-import com.tekoi.game.constants.ImagesPaths;
 import com.tekoi.game.constants.Map;
 
 public class Player extends Sprite {
@@ -24,8 +22,20 @@ public class Player extends Sprite {
     public Body b2body;
     public Body b2body_attack;
 
-    public static final int WIDTH = 95;
-    public static final int HEIGHT = 64;
+    public static final int WIDTH = 190;
+    public static final int HEIGHT = 128;
+    public static final double SIZE_MULTIPLIER = 1;//.7;
+
+    public static final double MULTIPLIER = 2;//1.4;
+
+    public static final int CHAR_COLLISION_WIDTH = (int)(15 * MULTIPLIER);
+    public static final int CHAR_COLLISION_HEIGHT = (int)(26 * MULTIPLIER);
+    public static final int BASE_SENSOR_HEIGHT = (int)(16 * MULTIPLIER);
+    public static final int BASE_SENSOR_POSITION_Y = (int)(-22 * MULTIPLIER);
+    public static final int ATTACK_BOX_WIDTH = (int)(15 * MULTIPLIER);
+    public static final int ATTACK_BOX_HEIGHT = (int)(16 * MULTIPLIER);
+    public static final int ATTACK_BOX_POSITION_Y = (int)(-6 * MULTIPLIER);
+    public static final int ATTACK_BOX_SIZE_DISPLACEMENT = (int)(26 * MULTIPLIER);
 
     public static final int ATTACK_TIME = 150;
 
@@ -48,7 +58,8 @@ public class Player extends Sprite {
 
     public Player(World world, Texture texture) {
         this(world, texture, 200 / TekoiGame.PPM, 380 / TekoiGame.PPM);
-        setSize(WIDTH / TekoiGame.PPM, HEIGHT / TekoiGame.PPM);
+        //this sets the size of the character in the screen - it's being changed to get a better proportion
+        setSize((float) (WIDTH * SIZE_MULTIPLIER / TekoiGame.PPM), (float) (HEIGHT * SIZE_MULTIPLIER / TekoiGame.PPM));
     }
 
     public Player(World world, Texture texture, float x, float y) {
@@ -158,7 +169,8 @@ public class Player extends Sprite {
         //Body Fixture
         FixtureDef bodyFdef = new FixtureDef();
         PolygonShape bodyShape = new PolygonShape();
-        bodyShape.setAsBox(15 / TekoiGame.PPM, (26) / TekoiGame.PPM, new Vector2(0 / TekoiGame.PPM, 0 / TekoiGame.PPM), 0);
+        bodyShape.setAsBox(CHAR_COLLISION_WIDTH / TekoiGame.PPM, CHAR_COLLISION_HEIGHT / TekoiGame.PPM,
+                new Vector2(0 / TekoiGame.PPM, 0 / TekoiGame.PPM), 0);
         bodyFdef.filter.categoryBits = Bits.PLAYER_BIT;
         bodyFdef.filter.maskBits = Bits.BRICK_BIT | Bits.LEVEL_END_BIT
                 | Bits.DAMAGE_BIT | Bits.PASS_BLOCK_BIT | Bits.ENEMY_BIT;
@@ -169,19 +181,18 @@ public class Player extends Sprite {
         //Base Circle
         FixtureDef fdefCircle = new FixtureDef();
         CircleShape circleShape = new CircleShape();
-        circleShape.setRadius(15 / TekoiGame.PPM);
-        circleShape.setPosition(new Vector2(0 / TekoiGame.PPM, -15 / TekoiGame.PPM));
+        circleShape.setRadius(CHAR_COLLISION_WIDTH / TekoiGame.PPM);
+        circleShape.setPosition(new Vector2(0 / TekoiGame.PPM, -CHAR_COLLISION_WIDTH / TekoiGame.PPM));
         fdefCircle.filter.categoryBits = Bits.PLAYER_BIT;
         fdefCircle.filter.maskBits = Bits.BRICK_BIT;
         fdefCircle.shape = circleShape;
         fdefCircle.friction = 0;
         b2body.createFixture(fdefCircle).setUserData(Map.PLAYER_BODY);
 
-
         //Base Sensor
         FixtureDef baseSensorFdef = new FixtureDef();
         PolygonShape baseShape = new PolygonShape();
-        baseShape.setAsBox(15 / TekoiGame.PPM, 16 / TekoiGame.PPM, new Vector2(0 / TekoiGame.PPM, -22 / TekoiGame.PPM), 0);
+        baseShape.setAsBox(CHAR_COLLISION_WIDTH / TekoiGame.PPM, BASE_SENSOR_HEIGHT / TekoiGame.PPM, new Vector2(0 / TekoiGame.PPM, BASE_SENSOR_POSITION_Y / TekoiGame.PPM), 0);
         baseSensorFdef.shape = baseShape;
         baseSensorFdef.isSensor = true;
         baseSensorFdef.filter.categoryBits = Bits.BASE_BIT;
@@ -201,10 +212,10 @@ public class Player extends Sprite {
         FixtureDef attackSensorFdef = new FixtureDef();
         PolygonShape attackShape = new PolygonShape();
 
-        int direction = playerFacingRight ?  28 :  -28;
+        int direction = playerFacingRight ?  ATTACK_BOX_SIZE_DISPLACEMENT :  -ATTACK_BOX_SIZE_DISPLACEMENT;
 
-        attackShape.setAsBox(15 / TekoiGame.PPM, 16 / TekoiGame.PPM,
-                new Vector2(direction / TekoiGame.PPM, -6 / TekoiGame.PPM), 0);
+        attackShape.setAsBox(ATTACK_BOX_WIDTH / TekoiGame.PPM, ATTACK_BOX_HEIGHT / TekoiGame.PPM,
+                new Vector2(direction / TekoiGame.PPM, ATTACK_BOX_POSITION_Y / TekoiGame.PPM), 0);
         attackSensorFdef.shape = attackShape;
         attackSensorFdef.isSensor = true;
 

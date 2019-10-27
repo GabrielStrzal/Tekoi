@@ -64,6 +64,7 @@ public class LoadingScreen extends ScreenAdapter{
 
         //Levels
         assetManager.load(LevelNames.LEVEL_1, TiledMap.class);
+        assetManager.load(LevelNames.LEVEL_2, TiledMap.class);
 
     }
     @Override

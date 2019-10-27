@@ -72,7 +72,7 @@ public class TestScreen implements Screen {
         playButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                ScreenManager.getInstance().showScreen(ScreenEnum.GAME_SCREEN, game, 1);
+                ScreenManager.getInstance().showScreen(ScreenEnum.GAME_SCREEN, game, 2);
             }
         });
         menuButton.addListener(new ClickListener(){

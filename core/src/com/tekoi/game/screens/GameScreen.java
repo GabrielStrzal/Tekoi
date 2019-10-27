@@ -156,7 +156,7 @@ public class GameScreen implements Screen {
 
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && worldContactListener.isOnGrounds()) {
-            player.b2body.applyLinearImpulse(new Vector2(0, 4f), player.b2body.getWorldCenter(), true);
+            player.b2body.applyLinearImpulse(new Vector2(0, 5f), player.b2body.getWorldCenter(), true);
         }
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.b2body.getLinearVelocity().x <= 50) {
             player.b2body.setLinearVelocity(xVelocity, player.b2body.getLinearVelocity().y);
