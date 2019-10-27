@@ -8,7 +8,7 @@ import com.tekoi.game.config.GameConfig;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration ();
-		config.setWindowedMode( (int)GameConfig.SCREEN_WIDTH, (int)GameConfig.SCREEN_HEIGHT);
+		config.setWindowedMode( GameConfig.SCREEN_DESKTOP_DISPLAY_WIDTH, GameConfig.SCREEN_DESKTOP_DISPLAY_HEIGHT);
 		new Lwjgl3Application(new TekoiGame(), config);
 	}
 }

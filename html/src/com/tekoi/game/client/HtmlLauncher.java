@@ -4,13 +4,14 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.gwt.GwtApplication;
 import com.badlogic.gdx.backends.gwt.GwtApplicationConfiguration;
 import com.tekoi.game.TekoiGame;
+import com.tekoi.game.config.GameConfig;
 
 public class HtmlLauncher extends GwtApplication {
 
         // USE THIS CODE FOR A FIXED SIZE APPLICATION
         @Override
         public GwtApplicationConfiguration getConfig () {
-                return new GwtApplicationConfiguration(480, 320);
+                return new GwtApplicationConfiguration( GameConfig.SCREEN_HTML_DISPLAY_WIDTH, GameConfig.SCREEN_HTML_DISPLAY_HEIGHT);
         }
         // END CODE FOR FIXED SIZE APPLICATION
 

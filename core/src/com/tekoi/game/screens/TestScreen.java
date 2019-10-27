@@ -51,7 +51,7 @@ public class TestScreen implements Screen {
 
     @Override
     public void show() {
-        //Stage should controll input:
+        //Stage should control input:
         Gdx.input.setInputProcessor(stage);
 
         //Create Table
