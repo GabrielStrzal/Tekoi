@@ -199,7 +199,7 @@ public class Player extends Sprite {
         FixtureDef attackSensorFdef = new FixtureDef();
         PolygonShape attackShape = new PolygonShape();
 
-        int direction = playerFacingRight ?  10 :  -10;
+        int direction = playerFacingRight ?  28 :  -28;
 
         attackShape.setAsBox(15 / TekoiGame.PPM, 16 / TekoiGame.PPM,
                 new Vector2(direction / TekoiGame.PPM, -6 / TekoiGame.PPM), 0);
