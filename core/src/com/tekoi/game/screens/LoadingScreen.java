@@ -79,7 +79,7 @@ public class LoadingScreen extends ScreenAdapter{
     }
     private void update() {
         if (assetManager.update()) {
-            game.setScreen(new TestScreen(game));
+            game.setScreen(new MenuTestScreen(game));
         } else {
             progress = assetManager.getProgress();
         }

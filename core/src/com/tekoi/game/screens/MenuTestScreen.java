@@ -20,7 +20,7 @@ import com.tekoi.game.config.GameConfig;
 import com.tekoi.game.screenManager.ScreenEnum;
 import com.tekoi.game.screenManager.ScreenManager;
 
-public class TestScreen implements Screen {
+public class MenuTestScreen implements Screen {
 
     private SpriteBatch batch;
     protected Stage stage;
@@ -31,7 +31,7 @@ public class TestScreen implements Screen {
 
     TekoiGame game;
 
-    public TestScreen(TekoiGame game)
+    public MenuTestScreen(TekoiGame game)
     {
         atlas = new TextureAtlas("skins/default/uiskin.atlas");
         skin = new Skin(Gdx.files.internal("skins/default/uiskin.json"), atlas);
@@ -62,10 +62,10 @@ public class TestScreen implements Screen {
         mainTable.top();
 
         //Create buttons
-        TextButton playButton = new TextButton("Play", skin);
-        TextButton optionsButton = new TextButton("Options", skin);
-        TextButton menuButton = new TextButton("Menu", skin);
-        TextButton textButton = new TextButton("TextTest", skin);
+        TextButton playButton = new TextButton("Level 1 Play", skin);
+        TextButton townButton = new TextButton("Level 2 Town", skin);
+        TextButton menuButton = new TextButton("Old Menu", skin);
+        TextButton textButton = new TextButton("Text Test", skin);
         TextButton exitButton = new TextButton("Exit", skin);
 
         //Add listeners to buttons
@@ -73,6 +73,12 @@ public class TestScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 ScreenManager.getInstance().showScreen(ScreenEnum.GAME_SCREEN, game, 1);
+            }
+        });
+        townButton.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                ScreenManager.getInstance().showScreen(ScreenEnum.GAME_SCREEN, game, 2);
             }
         });
         menuButton.addListener(new ClickListener(){
@@ -97,11 +103,11 @@ public class TestScreen implements Screen {
         //Add buttons to table
         mainTable.add(playButton);
         mainTable.row();
+        mainTable.add(townButton);
+        mainTable.row();
         mainTable.add(menuButton);
         mainTable.row();
         mainTable.add(textButton);
-        mainTable.row();
-        mainTable.add(optionsButton);
         mainTable.row();
         mainTable.add(exitButton);
 
