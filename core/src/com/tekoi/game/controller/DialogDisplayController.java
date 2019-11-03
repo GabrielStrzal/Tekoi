@@ -33,8 +33,11 @@ public class DialogDisplayController implements Disposable {
     private TextureAtlas atlas;
     protected Skin skin;
 
+    //labels and text
+    private TypingLabel label;
 
 
+    //TODO the constructor can receive the current level and load all the correct texts for it.
     public DialogDisplayController(TekoiGame game, GameScreen gameScreen) {
         this.game = game;
         this.gameScreen = gameScreen;
@@ -79,7 +82,7 @@ public class DialogDisplayController implements Disposable {
                 "{JUMP}Test this is not{ENDJUMP}";
 
         // Create a TypingLabel instance with your custom text
-        TypingLabel label = new TypingLabel(text, skin);
+        label = new TypingLabel(text, skin);
 
 
 
@@ -91,6 +94,10 @@ public class DialogDisplayController implements Disposable {
 
         //Add table to stage
         stage.addActor(mainTable);
+    }
+
+    public void restart(){
+        label.restart();
     }
 
 

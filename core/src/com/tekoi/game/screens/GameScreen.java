@@ -185,7 +185,10 @@ public class GameScreen implements Screen {
         if (Gdx.input.isKeyJustPressed(Input.Keys.T)) {
             //showDialog
             if(gameState != DIALOG) gameState = DIALOG;
-            else gameState = PLAYING;
+            else {
+                gameState = PLAYING;
+                dialogDisplayController.restart();
+            }
         }
 
 
