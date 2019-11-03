@@ -1,5 +1,7 @@
 package com.tekoi.game.screens;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -19,6 +21,7 @@ import com.tekoi.game.TekoiGame;
 import com.tekoi.game.config.GameConfig;
 import com.tekoi.game.constants.ImagesPaths;
 import com.tekoi.game.constants.LevelNames;
+import com.tekoi.game.controller.DialogDisplayController;
 import com.tekoi.game.controller.HudController;
 import com.tekoi.game.controller.InputController;
 import com.tekoi.game.entity.enemies.Enemy;
@@ -27,13 +30,14 @@ import com.tekoi.game.utils.GdxUtils;
 import com.tekoi.game.worldCreator.B2WorldCreator;
 import com.tekoi.game.worldCreator.WorldContactListener;
 
+import static com.tekoi.game.screens.GameState.DIALOG;
 import static com.tekoi.game.screens.GameState.PLAYING;
 
 
 public class GameScreen implements Screen {
 
     private TekoiGame game;
-    private GameState gameState;
+    public GameState gameState;
 
 
     //Controller
@@ -43,6 +47,7 @@ public class GameScreen implements Screen {
     private InputController inputController;
 
     private HudController hudController;
+    private DialogDisplayController dialogDisplayController;
 
     // Renderer
     private OrthographicCamera gameCam;
@@ -82,6 +87,7 @@ public class GameScreen implements Screen {
         player = new Player(world, (Texture) assetManager.get(ImagesPaths.CHAR_ATLAS));
         inputController = new InputController(player, worldContactListener);
         hudController = new HudController(game, this);
+        dialogDisplayController = new DialogDisplayController(game, this);
 
     }
 
@@ -169,7 +175,17 @@ public class GameScreen implements Screen {
             case PAUSED: {
 //                checkUnPauseGame();
             }
+            case DIALOG: {
+//                checkUnPauseGame();
+            }
             break;
+        }
+
+        //remove this later
+        if (Gdx.input.isKeyJustPressed(Input.Keys.T)) {
+            //showDialog
+            if(gameState != DIALOG) gameState = DIALOG;
+            else gameState = PLAYING;
         }
 
 
@@ -193,8 +209,11 @@ public class GameScreen implements Screen {
 
         drawEnemies(delta);
         player.draw(game.batch);
+        dialogDisplayController.drawDialog(game.batch);
         game.batch.end();
         hudController.draw();
+        dialogDisplayController.render(delta);
+
 
     }
 

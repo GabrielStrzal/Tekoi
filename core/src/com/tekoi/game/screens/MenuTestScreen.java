@@ -59,7 +59,7 @@ public class MenuTestScreen implements Screen {
         //Set table to fill stage
         mainTable.setFillParent(true);
         //Set alignment of contents in the table.
-        mainTable.top();
+        mainTable.center();
 
         //Create buttons
         TextButton playButton = new TextButton("Level 1 Play", skin);

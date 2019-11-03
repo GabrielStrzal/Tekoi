@@ -13,7 +13,6 @@ public class ImagesPaths {
     public static final String MENU_RESTART_BUTTON_PRESSED = "images/menu/menu_restart_pressed.png";
 
     //Character
-    //public static final String CHAR_ATLAS = "images/char/char_atlas_64x64.png";
     public static final String CHAR_ATLAS = "images/char/char_atlas_2_128x128.png";
 
     //Enemies
