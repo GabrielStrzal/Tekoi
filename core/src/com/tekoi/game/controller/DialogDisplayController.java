@@ -64,8 +64,6 @@ public class DialogDisplayController implements Disposable {
 
     private void initText(){
         //text
-        //Stage should controll input:
-        Gdx.input.setInputProcessor(stage);
 
         //Create Table
         Table mainTable = new Table();
