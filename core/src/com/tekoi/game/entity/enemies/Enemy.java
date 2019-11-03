@@ -14,7 +14,7 @@ public abstract class Enemy extends Sprite {
     protected float width;
     protected float height;
 
-    public int HP = 1;
+    protected int HP = 1;
     public boolean attacked = false;
 
     public Enemy(Body body, TekoiGame game, Texture texture) {
@@ -23,6 +23,12 @@ public abstract class Enemy extends Sprite {
         this.body = body;
         this.game = game;
         this.assetManager = game.getAssetManager();
+    }
+    public boolean isEnemyDead(){
+        return HP <= 0;
+    }
+    public void doDamageInEnemy(int damage){
+        HP -= damage;
     }
 
     public float getWidth() {

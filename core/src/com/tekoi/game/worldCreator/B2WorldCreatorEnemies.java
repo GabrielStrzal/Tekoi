@@ -47,7 +47,7 @@ public class B2WorldCreatorEnemies {
             Ellipse tiledMapEllipse = ((EllipseMapObject) object).getEllipse();
 
             BodyDef walkingEnemyBdef = createEnemyBodyDef(tiledMapEllipse.x, tiledMapEllipse.y, tiledMapEllipse.width, tiledMapEllipse.height);
-            PolygonShape walkingEnemyShape = createPolygonShape(32, 64);
+            PolygonShape walkingEnemyShape = createPolygonShape(64, 128);
 
             FixtureDef walkingEnemyFdef = createWalkingEnemyFixtureDef(walkingEnemyShape);
             Body walkingEnemyBody = createWalkingEnemyBody(world, walkingEnemyBdef, walkingEnemyFdef, Map.MAP_WALKING_ENEMY);
@@ -89,7 +89,7 @@ public class B2WorldCreatorEnemies {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
             BodyDef basicEnemyBdef = createEnemyBodyDef(rect.x, rect.y, rect.width, rect.height);
-            PolygonShape basicEnemyShape = createPolygonShape(rect.getWidth(), rect.getHeight());
+            PolygonShape basicEnemyShape = createPolygonShape(64, 128);
             FixtureDef basicEnemyFdef = createWalkingEnemyFixtureDef(basicEnemyShape);
             Body basicEnemyBody = createWalkingEnemyBody(world, basicEnemyBdef, basicEnemyFdef, Map.MAP_BASIC_ENEMY);
 

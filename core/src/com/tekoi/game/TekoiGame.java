@@ -15,15 +15,12 @@ public class TekoiGame extends Game {
 	public SpriteBatch batch;
 	private final AssetManager assetManager = new AssetManager();
 
-	public boolean directionRight = true;
-	
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
 		assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
 		ScreenManager.getInstance().initialize(this);
 		ScreenManager.getInstance().showScreen(ScreenEnum.LOADING_SCREEN, this);
-
 	}
 
 	@Override

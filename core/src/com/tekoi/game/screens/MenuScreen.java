@@ -22,6 +22,7 @@ import com.tekoi.game.screenManager.ScreenEnum;
 import com.tekoi.game.screenManager.ScreenManager;
 import com.tekoi.game.utils.GdxUtils;
 
+@Deprecated
 public class MenuScreen extends ScreenAdapter {
 
     private static final int PLAY_BUTTON_Y = (int)GameConfig.SCREEN_HEIGHT /8;

@@ -106,11 +106,8 @@ public class Player extends Sprite {
             break;
             case ATTACKING: {
                 checkAttackOver();
-                //regionToDraw = (TextureRegion) action.getKeyFrame(animationTimer);
                 regionToDraw = attack;
                 updateAttackShape();
-
-
             }
             break;
             case CROUCHING: {
