@@ -5,6 +5,7 @@ import com.tekoi.game.TekoiGame;
 import com.tekoi.game.screens.GameScreen;
 import com.tekoi.game.screens.LoadingScreen;
 import com.tekoi.game.screens.MenuScreen;
+import com.tekoi.game.screens.MenuTestScreen;
 
 /**
  * Based on http://www.pixnbgames.com/blog/libgdx/how-to-manage-screens-in-libgdx/
@@ -22,6 +23,11 @@ public enum ScreenEnum {
         }
     },
     MENU_SCREEN {
+        public Screen getScreen(Object... params) {
+            return new MenuTestScreen((TekoiGame)params[0]);
+        }
+    },
+    MENU_SCREEN_OLD {
         public Screen getScreen(Object... params) {
             return new MenuScreen((TekoiGame)params[0]);
         }

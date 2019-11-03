@@ -14,6 +14,7 @@ public class TekoiGame extends Game {
 	public static final float PPM = 100;
 	public SpriteBatch batch;
 	private final AssetManager assetManager = new AssetManager();
+	public int currentLevel;
 
 	@Override
 	public void create () {

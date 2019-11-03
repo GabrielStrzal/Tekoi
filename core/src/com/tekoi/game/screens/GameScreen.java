@@ -19,6 +19,7 @@ import com.tekoi.game.TekoiGame;
 import com.tekoi.game.config.GameConfig;
 import com.tekoi.game.constants.ImagesPaths;
 import com.tekoi.game.constants.LevelNames;
+import com.tekoi.game.controller.HudController;
 import com.tekoi.game.controller.InputController;
 import com.tekoi.game.entity.enemies.Enemy;
 import com.tekoi.game.entity.Player;
@@ -40,6 +41,8 @@ public class GameScreen implements Screen {
     private float gravity = -10f;
 
     private InputController inputController;
+
+    private HudController hudController;
 
     // Renderer
     private OrthographicCamera gameCam;
@@ -66,10 +69,10 @@ public class GameScreen implements Screen {
         world = new World(new Vector2(0, gravity), true);
         b2dr = new Box2DDebugRenderer();
 
+        game.currentLevel = level;
         map = assetManager.get(LevelNames.LEVEL + level + LevelNames.TMX);
         mapRenderer = new OrthogonalTiledMapRenderer(map, 1 / TekoiGame.PPM);
         gameCam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
-
 
 
         b2World = new B2WorldCreator(world, map, game);
@@ -78,6 +81,7 @@ public class GameScreen implements Screen {
 
         player = new Player(world, (Texture) assetManager.get(ImagesPaths.CHAR_ATLAS));
         inputController = new InputController(player, worldContactListener);
+        hudController = new HudController(game, this);
 
     }
 
@@ -142,8 +146,6 @@ public class GameScreen implements Screen {
     }
 
 
-
-
     @Override
     public void render(float delta) {
         switch (gameState) {
@@ -192,11 +194,12 @@ public class GameScreen implements Screen {
         drawEnemies(delta);
         player.draw(game.batch);
         game.batch.end();
+        hudController.draw();
 
     }
 
     private void drawEnemies(float delta) {
-        for (Enemy enemy: b2World.b2WorldCreatorEnemies.enemies){
+        for (Enemy enemy : b2World.b2WorldCreatorEnemies.enemies) {
             enemy.draw(game.batch);
         }
 
@@ -205,6 +208,7 @@ public class GameScreen implements Screen {
     @Override
     public void resize(int width, int height) {
         gamePort.update(width, height);
+        hudController.resize(width, height);
     }
 
     @Override

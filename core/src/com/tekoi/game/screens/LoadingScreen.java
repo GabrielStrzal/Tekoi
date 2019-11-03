@@ -53,6 +53,10 @@ public class LoadingScreen extends ScreenAdapter{
         assetManager.load(ImagesPaths.MENU_BACKGROUND, Texture.class);
         assetManager.load(ImagesPaths.MENU_PLAY_BUTTON, Texture.class);
         assetManager.load(ImagesPaths.MENU_PLAY_BUTTON_PRESSED, Texture.class);
+        assetManager.load(ImagesPaths.MENU_RETURN_BUTTON, Texture.class);
+        assetManager.load(ImagesPaths.MENU_RETURN_BUTTON_PRESSED, Texture.class);
+        assetManager.load(ImagesPaths.MENU_RESTART_BUTTON, Texture.class);
+        assetManager.load(ImagesPaths.MENU_RESTART_BUTTON_PRESSED, Texture.class);
         assetManager.load(GameAssets.GAME_FONT, BitmapFont.class);
 
         //Character

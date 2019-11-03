@@ -84,7 +84,7 @@ public class MenuTestScreen implements Screen {
         menuButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                ScreenManager.getInstance().showScreen(ScreenEnum.MENU_SCREEN, game);
+                ScreenManager.getInstance().showScreen(ScreenEnum.MENU_SCREEN_OLD, game);
             }
         });
         textButton.addListener(new ClickListener(){
