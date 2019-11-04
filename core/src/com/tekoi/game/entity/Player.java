@@ -18,6 +18,8 @@ import com.tekoi.game.constants.Map;
 
 public class Player extends Sprite {
 
+    PlayerStats playerStats;
+
     public World world;
     public Body b2body;
     public Body b2body_attack;
@@ -75,6 +77,7 @@ public class Player extends Sprite {
         attack = regions[2][2];
         regionToDraw = standing;
         definePlayer(x, y);
+        playerStats = new PlayerStats();
 
     }
 

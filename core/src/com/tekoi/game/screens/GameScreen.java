@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -28,6 +27,7 @@ import com.tekoi.game.entity.enemies.Enemy;
 import com.tekoi.game.entity.Player;
 import com.tekoi.game.utils.GdxUtils;
 import com.tekoi.game.worldCreator.B2WorldCreator;
+import com.tekoi.game.worldCreator.TextureMapObjectRenderer;
 import com.tekoi.game.worldCreator.WorldContactListener;
 
 import static com.tekoi.game.screens.GameState.DIALOG;
@@ -53,7 +53,7 @@ public class GameScreen implements Screen {
     private OrthographicCamera gameCam;
     private Viewport gamePort;
     private TiledMap map;
-    private OrthogonalTiledMapRenderer mapRenderer;
+    private TextureMapObjectRenderer mapRenderer;
 
     private World world;
     private Box2DDebugRenderer b2dr;
@@ -76,7 +76,7 @@ public class GameScreen implements Screen {
 
         game.currentLevel = level;
         map = assetManager.get(LevelNames.LEVEL + level + LevelNames.TMX);
-        mapRenderer = new OrthogonalTiledMapRenderer(map, 1 / TekoiGame.PPM);
+        mapRenderer = new TextureMapObjectRenderer(map, 1 / TekoiGame.PPM);
         gameCam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
 
 
