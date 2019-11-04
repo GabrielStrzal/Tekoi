@@ -29,7 +29,6 @@ public class TextureMapObjectRenderer extends OrthogonalTiledMapRenderer {
     public void renderObject(MapObject object) {
         if (object instanceof TextureMapObject) {
             TextureMapObject textureObject = (TextureMapObject) object;
-
             batch.draw(
                     textureObject.getTextureRegion(),
                     textureObject.getX() / TekoiGame.PPM,
@@ -40,7 +39,7 @@ public class TextureMapObjectRenderer extends OrthogonalTiledMapRenderer {
                     textureObject.getTextureRegion().getRegionHeight() / TekoiGame.PPM,
                     textureObject.getScaleX(),
                     textureObject.getScaleY(),
-                    textureObject.getRotation()
+                    textureObject.getRotation() * -1
             );
         }
     }
