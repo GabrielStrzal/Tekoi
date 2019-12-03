@@ -82,6 +82,7 @@ project(":core") {
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
         api "com.rafaskoberg.gdx:typing-label:$typingLabelVersion"
+        api "com.strzal:gdxUtils:1.0-SNAPSHOT"
         
     }
 }

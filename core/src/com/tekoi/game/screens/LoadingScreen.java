@@ -11,12 +11,12 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.strzal.gdx.utils.GdxUtils;
 import com.tekoi.game.TekoiGame;
 import com.tekoi.game.config.GameConfig;
 import com.tekoi.game.constants.GameAssets;
 import com.tekoi.game.constants.ImagesPaths;
 import com.tekoi.game.constants.LevelNames;
-import com.tekoi.game.utils.GdxUtils;
 
 /**
  * based on "LibGDX Game Development By Example"

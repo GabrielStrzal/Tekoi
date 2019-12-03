@@ -14,13 +14,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.strzal.gdx.utils.GdxUtils;
 import com.tekoi.game.TekoiGame;
 import com.tekoi.game.config.GameConfig;
 import com.tekoi.game.constants.GameAssets;
 import com.tekoi.game.constants.ImagesPaths;
 import com.tekoi.game.screenManager.ScreenEnum;
 import com.tekoi.game.screenManager.ScreenManager;
-import com.tekoi.game.utils.GdxUtils;
 
 @Deprecated
 public class MenuScreen extends ScreenAdapter {
