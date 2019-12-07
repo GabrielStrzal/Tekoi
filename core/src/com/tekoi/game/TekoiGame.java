@@ -1,20 +1,15 @@
 package com.tekoi.game;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.strzal.gdx.BasicGame;
 import com.tekoi.game.screenManager.ScreenEnum;
 import com.tekoi.game.screenManager.ScreenManager;
 
-public class TekoiGame extends Game {
-
-	public static final float PPM = 100;
-	public SpriteBatch batch;
-	private final AssetManager assetManager = new AssetManager();
-	public int currentLevel;
+public class TekoiGame extends BasicGame {
 
 	@Override
 	public void create () {
