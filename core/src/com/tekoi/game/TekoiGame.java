@@ -28,8 +28,4 @@ public class TekoiGame extends BasicGame {
 	public void dispose () {
 		batch.dispose();
 	}
-
-	public AssetManager getAssetManager() {
-		return assetManager;
-	}
 }
