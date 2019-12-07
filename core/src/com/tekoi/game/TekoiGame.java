@@ -1,6 +1,5 @@
 package com.tekoi.game;
 
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -17,11 +16,6 @@ public class TekoiGame extends BasicGame {
 		assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
 		ScreenManager.getInstance().initialize(this);
 		ScreenManager.getInstance().showScreen(ScreenEnum.LOADING_SCREEN, this);
-	}
-
-	@Override
-	public void render () {
-		super.render();
 	}
 
 	@Override
