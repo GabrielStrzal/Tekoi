@@ -5,8 +5,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.strzal.gdx.BasicGame;
+import com.strzal.gdx.screenManager.ScreenManager;
 import com.tekoi.game.screenManager.ScreenEnum;
-import com.tekoi.game.screenManager.ScreenManager;
 
 public class TekoiGame extends BasicGame {
 

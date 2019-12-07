@@ -13,11 +13,11 @@ import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.strzal.gdx.screenManager.ScreenManager;
 import com.tekoi.game.TekoiGame;
 import com.tekoi.game.config.GameConfig;
 import com.tekoi.game.constants.ImagesPaths;
 import com.tekoi.game.screenManager.ScreenEnum;
-import com.tekoi.game.screenManager.ScreenManager;
 import com.tekoi.game.screens.GameScreen;
 
 public class HudController {

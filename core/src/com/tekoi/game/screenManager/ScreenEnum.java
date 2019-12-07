@@ -1,6 +1,7 @@
 package com.tekoi.game.screenManager;
 
 import com.badlogic.gdx.Screen;
+import com.strzal.gdx.screenManager.ScreenEnumIn;
 import com.tekoi.game.TekoiGame;
 import com.tekoi.game.screens.GameScreen;
 import com.tekoi.game.screens.LoadingScreen;
@@ -11,7 +12,7 @@ import com.tekoi.game.screens.MenuTestScreen;
  * Based on http://www.pixnbgames.com/blog/libgdx/how-to-manage-screens-in-libgdx/
  */
 
-public enum ScreenEnum {
+public enum ScreenEnum implements ScreenEnumIn {
     GAME_SCREEN {
         public Screen getScreen(Object... params) {
             return new GameScreen((TekoiGame)params[0], (Integer) params[1]);
@@ -33,5 +34,4 @@ public enum ScreenEnum {
         }
     };
 
-    public abstract Screen getScreen(Object... params);
 }

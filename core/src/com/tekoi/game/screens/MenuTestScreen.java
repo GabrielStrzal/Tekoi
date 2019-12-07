@@ -15,10 +15,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.strzal.gdx.screenManager.ScreenManager;
+import com.strzal.gdx.utils.GdxUtils;
 import com.tekoi.game.TekoiGame;
 import com.tekoi.game.config.GameConfig;
 import com.tekoi.game.screenManager.ScreenEnum;
-import com.tekoi.game.screenManager.ScreenManager;
 
 public class MenuTestScreen implements Screen {
 
@@ -117,8 +118,7 @@ public class MenuTestScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(.1f, .12f, .16f, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        GdxUtils.clearScreen();
 
         stage.act();
         stage.draw();
