@@ -2,8 +2,7 @@ package com.tekoi.game.screens;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -21,7 +20,7 @@ import com.tekoi.game.TekoiGame;
 import com.tekoi.game.config.GameConfig;
 import com.tekoi.game.screenManager.ScreenEnum;
 
-public class MenuTestScreen implements Screen {
+public class MenuTestScreen extends ScreenAdapter {
 
     private SpriteBatch batch;
     protected Stage stage;
