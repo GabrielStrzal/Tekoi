@@ -16,7 +16,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.strzal.gdx.utils.GdxUtils;
+import com.strzal.gdxUtilLib.utils.GdxUtils;
 import com.tekoi.game.TekoiGame;
 import com.tekoi.game.config.GameConfig;
 import com.tekoi.game.constants.ImagesPaths;
@@ -187,7 +187,7 @@ public class GameScreen implements Screen {
             if(gameState != DIALOG) gameState = DIALOG;
             else {
                 gameState = PLAYING;
-                dialogDisplayController.restart();
+                dialogDisplayController.restart("This is a test");
             }
         }
 

@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.rafaskoberg.gdx.typinglabel.TypingLabel;
+import com.strzal.gdxUtilLib.BasicGame;
 import com.tekoi.game.TekoiGame;
 import com.tekoi.game.config.GameConfig;
 import com.tekoi.game.constants.ImagesPaths;
@@ -21,7 +22,7 @@ import com.tekoi.game.screens.GameState;
 
 public class DialogDisplayController implements Disposable {
 
-    private TekoiGame game;
+    private BasicGame game;
     private GameScreen gameScreen;
     private AssetManager assetManager;
 
@@ -38,7 +39,7 @@ public class DialogDisplayController implements Disposable {
 
 
     //TODO the constructor can receive the current level and load all the correct texts for it.
-    public DialogDisplayController(TekoiGame game, GameScreen gameScreen) {
+    public DialogDisplayController(BasicGame game, GameScreen gameScreen) {
         this.game = game;
         this.gameScreen = gameScreen;
         this.assetManager = game.getAssetManager();
@@ -98,6 +99,10 @@ public class DialogDisplayController implements Disposable {
 
     public void restart(){
         label.restart();
+    }
+
+    public void restart(String newText){
+        label.restart(newText);
     }
 
 

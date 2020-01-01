@@ -1,6 +1,6 @@
 package com.tekoi.game.loading;
 
-import com.strzal.gdx.loading.LoadingPaths;
+import com.strzal.gdxUtilLib.loading.LoadingPaths;
 import com.tekoi.game.constants.GameAssets;
 import com.tekoi.game.constants.ImagesPaths;
 import com.tekoi.game.constants.LevelNames;

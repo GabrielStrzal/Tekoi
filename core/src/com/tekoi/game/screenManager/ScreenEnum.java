@@ -2,9 +2,9 @@ package com.tekoi.game.screenManager;
 
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.ScreenAdapter;
-import com.strzal.gdx.loading.LoadingPaths;
-import com.strzal.gdx.screenManager.ScreenEnumInterface;
-import com.strzal.gdx.screens.LoadingScreen;
+import com.strzal.gdxUtilLib.loading.LoadingPaths;
+import com.strzal.gdxUtilLib.screenManager.ScreenEnumInterface;
+import com.strzal.gdxUtilLib.screens.LoadingScreen;
 import com.tekoi.game.TekoiGame;
 import com.tekoi.game.screens.GameScreen;
 import com.tekoi.game.screens.MenuScreen;
