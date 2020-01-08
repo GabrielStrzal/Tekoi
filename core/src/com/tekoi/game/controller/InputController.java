@@ -3,6 +3,7 @@ package com.tekoi.game.controller;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
+import com.tekoi.game.TekoiGame;
 import com.tekoi.game.entity.Player;
 import com.tekoi.game.worldCreator.WorldContactListener;
 
@@ -10,13 +11,15 @@ public class InputController {
 
     private Player player;
     private WorldContactListener worldContactListener;
+    private TekoiGame game;
 
     private final float X_VELOCITY = 2f;
     private final float JUMP_SPEED = 6f;
     private final int TOP_LINEAR_VELOCITY = 70;
 
 
-    public InputController(Player player, WorldContactListener worldContactListener) {
+    public InputController(TekoiGame game, Player player, WorldContactListener worldContactListener) {
+        this.game = game;
         this.player = player;
         this.worldContactListener = worldContactListener;
     }
@@ -25,6 +28,7 @@ public class InputController {
 
         //Jump
         if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && worldContactListener.isOnGrounds() && player.b2body.getLinearVelocity().y == 0) {
+            game.getAudioHandler().playJumpSound();
             player.b2body.applyLinearImpulse(new Vector2(0, JUMP_SPEED), player.b2body.getWorldCenter(), true);
         }
         //Move Right

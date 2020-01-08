@@ -85,7 +85,7 @@ public class GameScreen implements Screen {
         world.setContactListener(worldContactListener);
 
         player = new Player(world, (Texture) assetManager.get(ImagesPaths.CHAR_ATLAS));
-        inputController = new InputController(player, worldContactListener);
+        inputController = new InputController(game, player, worldContactListener);
         hudController = new HudController(game, this);
         dialogDisplayController = new DialogDisplayController(game, this);
 

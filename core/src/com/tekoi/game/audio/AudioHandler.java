@@ -27,21 +27,28 @@ public class AudioHandler {
 
     public void playWrongSound(){
         Sound sound = assetManager.get(SoundPaths.WRONG_AUDIO);
-//        if(game.getGameStatsHandler().isAudioOn())
         sound.play(volume);
     }
 
     public void playButtonSound(){
         Sound sound = assetManager.get(SoundPaths.MENU_BUTTON_AUDIO);
-//        if(game.getGameStatsHandler().isAudioOn())
-        sound.play(volume);
+        sound.play(volume/2);
     }
 
 
 
     public void playOrderCompleteSound()  {
         Sound sound = assetManager.get(SoundPaths.ORDER_COMPLETE_AUDIO);
-//        if(game.getGameStatsHandler().isAudioOn())
+        sound.play(volume * 3);
+    }
+
+    public void playJumpSound(){
+        Sound sound = assetManager.get(SoundPaths.JUMP_SOUND);
+        sound.play(volume * 3);
+    }
+
+    public void playHitHurtSound(){
+        Sound sound = assetManager.get(SoundPaths.HIT_SOUND);
         sound.play(volume * 3);
     }
 

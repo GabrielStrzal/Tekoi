@@ -65,6 +65,8 @@ public class LoadingPathsImpl implements LoadingPaths {
         list.add(SoundPaths.WRONG_AUDIO);
         list.add(SoundPaths.MENU_BUTTON_AUDIO);
         list.add(SoundPaths.ORDER_COMPLETE_AUDIO);
+        list.add(SoundPaths.JUMP_SOUND);
+        list.add(SoundPaths.HIT_SOUND);
 
         return list;
     }
