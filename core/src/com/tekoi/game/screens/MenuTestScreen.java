@@ -1,6 +1,5 @@
 package com.tekoi.game.screens;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -64,8 +63,6 @@ public class MenuTestScreen extends ScreenAdapter {
         //Create buttons
         TextButton playButton = new TextButton("Level 1 Play", skin);
         TextButton townButton = new TextButton("Level 2 Town", skin);
-        TextButton menuButton = new TextButton("Old Menu", skin);
-        TextButton textButton = new TextButton("Text Test", skin);
         TextButton exitButton = new TextButton("Exit", skin);
 
         //Add listeners to buttons
@@ -81,18 +78,6 @@ public class MenuTestScreen extends ScreenAdapter {
                 ScreenManager.getInstance().showScreen(ScreenEnum.GAME_SCREEN, game, 2);
             }
         });
-        menuButton.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                ScreenManager.getInstance().showScreen(ScreenEnum.MENU_SCREEN_OLD, game);
-            }
-        });
-        textButton.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                ((Game)Gdx.app.getApplicationListener()).setScreen(new TextTestScreen(game));
-            }
-        });
         exitButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -104,10 +89,6 @@ public class MenuTestScreen extends ScreenAdapter {
         mainTable.add(playButton);
         mainTable.row();
         mainTable.add(townButton);
-        mainTable.row();
-        mainTable.add(menuButton);
-        mainTable.row();
-        mainTable.add(textButton);
         mainTable.row();
         mainTable.add(exitButton);
 

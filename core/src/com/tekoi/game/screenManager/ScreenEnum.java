@@ -7,7 +7,6 @@ import com.strzal.gdxUtilLib.screenManager.ScreenEnumInterface;
 import com.strzal.gdxUtilLib.screens.LoadingScreen;
 import com.tekoi.game.TekoiGame;
 import com.tekoi.game.screens.GameScreen;
-import com.tekoi.game.screens.MenuScreen;
 import com.tekoi.game.screens.MenuTestScreen;
 
 /**
@@ -29,11 +28,6 @@ public enum ScreenEnum implements ScreenEnumInterface {
         public Screen getScreen(Object... params) {
             return new MenuTestScreen((TekoiGame)params[0]);
         }
-    },
-    MENU_SCREEN_OLD {
-        public Screen getScreen(Object... params) {
-            return new MenuScreen((TekoiGame)params[0]);
-        }
-    };
+    }
 
 }
