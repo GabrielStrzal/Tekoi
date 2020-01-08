@@ -19,7 +19,7 @@ import com.tekoi.game.TekoiGame;
 import com.tekoi.game.config.GameConfig;
 import com.tekoi.game.screenManager.ScreenEnum;
 
-public class MenuTestScreen extends ScreenAdapter {
+public class MenuScreen extends ScreenAdapter {
 
     private SpriteBatch batch;
     protected Stage stage;
@@ -30,7 +30,7 @@ public class MenuTestScreen extends ScreenAdapter {
 
     TekoiGame game;
 
-    public MenuTestScreen(TekoiGame game)
+    public MenuScreen(TekoiGame game)
     {
         atlas = new TextureAtlas("skins/default/uiskin.atlas");
         skin = new Skin(Gdx.files.internal("skins/default/uiskin.json"), atlas);
@@ -69,12 +69,14 @@ public class MenuTestScreen extends ScreenAdapter {
         playButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                game.getAudioHandler().playButtonSound();
                 ScreenManager.getInstance().showScreen(ScreenEnum.GAME_SCREEN, game, 1);
             }
         });
         townButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                game.getAudioHandler().playButtonSound();
                 ScreenManager.getInstance().showScreen(ScreenEnum.GAME_SCREEN, game, 2);
             }
         });

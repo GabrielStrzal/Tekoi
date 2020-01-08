@@ -7,7 +7,7 @@ import com.strzal.gdxUtilLib.screenManager.ScreenEnumInterface;
 import com.strzal.gdxUtilLib.screens.LoadingScreen;
 import com.tekoi.game.TekoiGame;
 import com.tekoi.game.screens.GameScreen;
-import com.tekoi.game.screens.MenuTestScreen;
+import com.tekoi.game.screens.MenuScreen;
 
 /**
  * Based on http://www.pixnbgames.com/blog/libgdx/how-to-manage-screens-in-libgdx/
@@ -26,7 +26,7 @@ public enum ScreenEnum implements ScreenEnumInterface {
     },
     MENU_SCREEN {
         public Screen getScreen(Object... params) {
-            return new MenuTestScreen((TekoiGame)params[0]);
+            return new MenuScreen((TekoiGame)params[0]);
         }
     }
 

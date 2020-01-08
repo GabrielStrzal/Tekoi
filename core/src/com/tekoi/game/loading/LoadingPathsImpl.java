@@ -4,6 +4,7 @@ import com.strzal.gdxUtilLib.loading.LoadingPaths;
 import com.tekoi.game.constants.GameAssets;
 import com.tekoi.game.constants.ImagesPaths;
 import com.tekoi.game.constants.LevelNames;
+import com.tekoi.game.constants.SoundPaths;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,7 +58,15 @@ public class LoadingPathsImpl implements LoadingPaths {
 
     @Override
     public List<String> getSoundPaths() {
-        return null;
+        List<String> list = new ArrayList<>();
+
+        //Menu
+        list.add(SoundPaths.CORRECT_AUDIO);
+        list.add(SoundPaths.WRONG_AUDIO);
+        list.add(SoundPaths.MENU_BUTTON_AUDIO);
+        list.add(SoundPaths.ORDER_COMPLETE_AUDIO);
+
+        return list;
     }
 
 }

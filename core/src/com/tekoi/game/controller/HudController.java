@@ -41,12 +41,12 @@ public class HudController {
     private static final float BUTTON_SIZE = 180;
     private static final float BUTTON_PADDING = 220;
 
-    private TekoiGame tekoiGame;
+    private TekoiGame game;
     GameScreen gameScreen;
 
 
-    public HudController(final TekoiGame tekoiGame, GameScreen gameScreen) {
-        this.tekoiGame = tekoiGame;
+    public HudController(final TekoiGame game, GameScreen gameScreen) {
+        this.game = game;
         this.gameScreen = gameScreen;
         camera = new OrthographicCamera();
         viewport = new FitViewport(GameConfig.SCREEN_WIDTH, GameConfig.SCREEN_HEIGHT);
@@ -58,7 +58,7 @@ public class HudController {
         inputMultiplexer.addProcessor(stageGameControls);
         inputMultiplexer.addProcessor(actionButtonScreenStage);
         Gdx.input.setInputProcessor(inputMultiplexer);
-        assetManager = tekoiGame.getAssetManager();
+        assetManager = game.getAssetManager();
 
 
         //Back Button
@@ -75,7 +75,8 @@ public class HudController {
             public void tap(InputEvent event, float x, float y, int count,
                                   int button) {
                 super.tap(event, x, y, count, button);
-                ScreenManager.getInstance().showScreen(ScreenEnum.MENU_SCREEN, tekoiGame);
+                game.getAudioHandler().playButtonSound();
+                ScreenManager.getInstance().showScreen(ScreenEnum.MENU_SCREEN, game);
 
             }
         });
@@ -94,7 +95,8 @@ public class HudController {
             @Override
             public void tap(InputEvent event, float x, float y, int count, int button) {
                 super.tap(event, x, y, count, button);
-                ScreenManager.getInstance().showScreen(ScreenEnum.GAME_SCREEN, tekoiGame, tekoiGame.currentLevel);
+                game.getAudioHandler().playButtonSound();
+                ScreenManager.getInstance().showScreen(ScreenEnum.GAME_SCREEN, game, game.currentLevel);
             }
         });
         stage.addActor(levelRestartBtn);
