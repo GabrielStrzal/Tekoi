@@ -63,6 +63,7 @@ public class MenuScreen extends ScreenAdapter {
         //Create buttons
         TextButton playButton = new TextButton("Level 1 Play", skin);
         TextButton townButton = new TextButton("Level 2 Town", skin);
+        TextButton level3 = new TextButton("Level 3", skin);
         TextButton exitButton = new TextButton("Exit", skin);
 
         //Add listeners to buttons
@@ -80,6 +81,13 @@ public class MenuScreen extends ScreenAdapter {
                 ScreenManager.getInstance().showScreen(ScreenEnum.GAME_SCREEN, game, 2);
             }
         });
+        level3.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                game.getAudioHandler().playButtonSound();
+                ScreenManager.getInstance().showScreen(ScreenEnum.GAME_SCREEN, game, 3);
+            }
+        });
         exitButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -91,6 +99,8 @@ public class MenuScreen extends ScreenAdapter {
         mainTable.add(playButton);
         mainTable.row();
         mainTable.add(townButton);
+        mainTable.row();
+        mainTable.add(level3);
         mainTable.row();
         mainTable.add(exitButton);
 

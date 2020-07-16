@@ -47,6 +47,7 @@ public class LoadingPathsImpl implements LoadingPaths {
         //Levels
         list.add(LevelNames.LEVEL_1);
         list.add(LevelNames.LEVEL_2);
+        list.add(LevelNames.LEVEL_3);
 
         return list;
     }
