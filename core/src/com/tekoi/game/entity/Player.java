@@ -174,6 +174,7 @@ public class Player extends Sprite {
         bodyFdef.filter.categoryBits = Bits.PLAYER_BIT;
         bodyFdef.filter.maskBits = Bits.BRICK_BIT | Bits.LEVEL_END_BIT
                 | Bits.DAMAGE_BIT | Bits.PASS_BLOCK_BIT | Bits.ENEMY_BIT;
+        bodyFdef.friction = 0; //wont let it collide with other stuff
         bodyFdef.shape = bodyShape;
         b2body.createFixture(bodyFdef).setUserData(Map.PLAYER_BODY);
 

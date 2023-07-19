@@ -9,6 +9,7 @@ import com.tekoi.game.worldCreator.WorldContactListener;
 
 public class InputController {
 
+    public static final double MIN_VELOCITY = .5;
     private Player player;
     private WorldContactListener worldContactListener;
     private TekoiGame game;
@@ -46,7 +47,7 @@ public class InputController {
             player.b2body.applyForceToCenter(-(player.b2body.getLinearVelocity().x) * 2, 0, true);
         }
         //remove x speed if player is slower (maybe remove this code later)
-        if(player.b2body.getLinearVelocity().x < .2 && player.b2body.getLinearVelocity().x > -.2)
+        if(player.b2body.getLinearVelocity().x < MIN_VELOCITY && player.b2body.getLinearVelocity().x > -MIN_VELOCITY)
             player.b2body.setLinearVelocity(0, player.b2body.getLinearVelocity().y);
 
         //Attack
