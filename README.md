@@ -10,3 +10,8 @@ Tekoi Game made with LibGDX
 
 Used
 compile "com.rafaskoberg.gdx:typing-label:1.0.4"
+
+
+
+## TODO
+[] Update code
